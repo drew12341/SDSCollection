@@ -1,0 +1,77 @@
+.radio-inline, .checkbox-inline {
+    float:left;
+}
+
+.form-group .btn-primary{
+    float:left;
+}
+
+.navbar-default .navbar-nav > li > a.active {
+    background-color:#fff;
+    border-top:solid 1px #eee;
+    border-left:solid 1px #eee;
+    border-right:solid 1px #eee;
+    margin-bottom: -1px;
+    color:#777;
+
+}
+
+.navbar-default {
+    background-color: #3C9D92;
+    border-color: #2d746a;
+}
+
+.btn-primary{
+    background-color: #3C9D92;
+    border-color: #2d746a;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #3db4a9;
+    border-color: #339b90;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #3db4a9;
+    border-color: #339b90;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-brand {
+    padding: 10px;
+}
+
+.navbar-brand img{
+    padding:2px;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    font-size: 14px;
+}
+
+.form-group.required .control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+    top:7px;
+}
+
+.arheader{
+    background-color:rgba(0, 153, 204, 0.41);
+}
+
+li a.active{
+    border-radius: 5px 5px 0 0;
+}
+
+.strong{
+    font-weight:bold;
+}
+
