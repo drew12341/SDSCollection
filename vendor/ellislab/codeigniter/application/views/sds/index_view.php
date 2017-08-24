@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 
-<h4 >SDS</h4>
+<a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a><h4>UTS Safety Data Sheet (SDS) Library</h4>
 <table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
 
@@ -20,18 +20,17 @@
     <?php foreach($sds as $i):?>
         <tr>
             <td>
-                <a class="btn btn-primary" href="ActionRegister/request/<?=$i['item_id'].$i['audit']?>">Open</a>
+                <a class="btn btn-primary" href="<?php echo site_url('Sds').'/edit/'.$i['id'];?>">Open</a>
             </td>
             <td><?=$i['substance_name']?></td>
-            <td><?=$i['link']?></td>
+            <td><a href="<?=$i['link']?>" class="btn btn-primary">Download</a></td>
             <td><?=$i['uploader']?></td>
-            <td><?=$i['cas']?><b> - No</b></td>
+            <td><?=$i['cas']?></td>
 
 
             <td><?=$i['vendor']?></td>
-            <td ><?=$i['expiry']?></td>
+            <td ><?=date("Y-m-d", strtotime($i['expiry']))?></td>
 
-            </td>
 
           </tr>
 
@@ -54,7 +53,10 @@ $(document).ready(function() {
 
 $('.table').DataTable({
 "order": [[1, "desc"]],
-
+    columnDefs: [{
+        targets: [6],
+        render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),
+    }]
 
 });
 

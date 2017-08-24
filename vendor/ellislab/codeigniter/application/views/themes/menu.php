@@ -18,7 +18,7 @@
 
                   <?php if($this->ion_auth->logged_in()): ?>
                       <li>
-                          <a id="defaulttab" class="page-scroll" href="<?php echo site_url('Dashboard'); ?>">Dashboard</a>
+                          <a id="defaulttab" class="page-scroll" href="<?php echo site_url('Sds'); ?>">Home</a>
                       </li>
                       
 

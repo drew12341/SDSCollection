@@ -8,11 +8,30 @@ class Import extends Auth_Controller
         parent::__construct();
 
         $this->load->helper('url');
-        $this->load->model('audits_model');
-        $this->load->model('templates_model');
+
 
     }
+    public function uploadTest(){
+        if(file_exists(APPPATH.'../tmp/'.'8-E-bikes.jpg')){
+            $file = fopen(APPPATH.'../tmp/'.'8-E-bikes.jpg', 'r');
+        }
+        else{
+            echo "NO FILE";
+        }
 
+
+        $url = 'https://cloudstor.aarnet.edu.au/plus/public.php/webdav/8-E-bikes.jpg';
+        $client = new Guzzle\Http\Client();
+        $client->setDefaultOption('auth', array(
+            'lRqlE8FPZr2HFk1',''
+        ));
+        $request = $client->put($url);//->addPostFiles(array('file' => APPPATH.'../tmp/'.'8-E-bikes.jpg'));
+        $request->setBody(fopen(APPPATH.'../tmp/'.'8-E-bikes.jpg', 'r'));
+        //echo $request;
+        $res = $request->send();
+        echo $res;
+        //curl --user'lRqlE8FPZr2HFk1' https://cloudstor.aarnet.edu.au/plus/public.php/webdav/file.txt -T 'file.txt'
+    }
 
 
     public function reloadIssues(){

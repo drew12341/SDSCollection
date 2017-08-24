@@ -189,7 +189,7 @@ class User extends CI_Controller  {
                 //Auto login after register
                 if ($this->ion_auth->login($email, $password, True))
                 {
-                    redirect('dashboard');
+                    redirect('sds');
                 }
                 else{
                     redirect('user/login');
@@ -226,7 +226,7 @@ class User extends CI_Controller  {
             $remember = (bool) $this->input->post('remember');
             if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
             {
-                redirect('dashboard');
+                redirect('sds');
             }
             else
             {

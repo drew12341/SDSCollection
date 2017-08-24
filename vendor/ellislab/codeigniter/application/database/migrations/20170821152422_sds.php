@@ -33,7 +33,7 @@ class Migration_sds extends CI_Migration {
                 'null'=>true
             ),
             'expiry'=>array(
-                'type'=>'date',
+                'type'=>'datetime',
                 'null'=>true
             )
         ));
