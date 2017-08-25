@@ -16,22 +16,51 @@ class Sds extends CI_Controller
         $this->load->view('sds/index_view', $data);
     }
 
+    public function cas_check($str)
+    {
+        if(preg_match('/^[a-zA-Z0-9]{7}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}+$/', $str ) )
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('cas_check', 'The {field} field must be in the format XXXXXXX-XX-X');
+            return FALSE;
+        }
+    }
+
     function newSds(){
+        if(!$this->ion_auth->logged_in()){
+            redirect('/');
+        }
+
         $this->load->library('form_builder');
         $this->load->library('form_validation');
+        $this->config->load('SDS_config');
 
         $this->form_validation->set_rules('substance_name', 'Substance Name','trim|required');
+        $this->form_validation->set_rules('userfile', 'File','trim|xss_clean');
+        $this->form_validation->set_rules('cas', 'Cas', array('required','callback_cas_check'));
         $this->form_validation->set_rules('vendor', 'Vendor','trim|required');
+        $this->form_validation->set_rules('expiry', 'Expiry','trim|required');
 
 
         if($this->form_validation->run()===FALSE)
         {
-            $this->load->view('sds/new_view');
+            $data = array();
+            $this->load->view('sds/new_view', $data);
         }
         else
         {
             $record = $this->input->post();
+
+            //fix expiry date
+            $record['expiry'] = str_replace('/', '-', $record['expiry']);
+            $record['expiry'] = date("Y-m-d", strtotime($record['expiry']));
+
+
             unset($record['submit']);
+            $record['uploader'] = $this->ion_auth->user()->row()->id;
 
             $config['upload_path'] = APPPATH.'../tmp/';
             $config['allowed_types'] = 'pdf|png';
@@ -47,20 +76,27 @@ class Sds extends CI_Controller
             }
             else
             {
-                $data = array('upload_data' => $this->upload->data('orig_name'));
-                $filename = $this->upload->data('orig_name');
+                $id = $this->Sds_model->addSDS($record);
 
-                $url = 'https://cloudstor.aarnet.edu.au/plus/public.php/webdav/'.$filename;
+
+                $filename = $id."_".$this->upload->data('orig_name');
+
+                $url = $this->config->item('sds_url').$filename;
                 $client = new Guzzle\Http\Client();
                 $client->setDefaultOption('auth', array(
-                    'lRqlE8FPZr2HFk1',''
+                    $this->config->item('foldername'),$this->config->item('password')
                 ));
                 $request = $client->put($url);
                 $request->setBody(fopen($this->upload->data('full_path'), 'r'));
                 //echo $request;
                 $res = $request->send();
-                //echo $res;
-                $_SESSION['aa_message'] = $res;
+
+                $link = $this->config->item('sds_download_url').$this->config->item('foldername').'/download?path=%2F&files='.$filename;
+                $record['link'] = $link;
+                $this->Sds_model->updateSDS($record, $id);
+
+                $_SESSION['aa_message'] = 'SDS Successfully Added';
+                $data = array('record'=>$record);
                 $this->load->view('sds/new_view', $data);
 
             }

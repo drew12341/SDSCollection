@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 
-<a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a><h4>UTS Safety Data Sheet (SDS) Library</h4>
+<a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a>
+<h4>UTS Safety Data Sheet (SDS) Library</h4>
 <table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
 
@@ -52,7 +53,7 @@
 $(document).ready(function() {
 
 $('.table').DataTable({
-"order": [[1, "desc"]],
+"order": [[0, "desc"]],
     columnDefs: [{
         targets: [6],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),

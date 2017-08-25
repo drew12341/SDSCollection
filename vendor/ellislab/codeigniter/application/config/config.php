@@ -2,15 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-/* API iAuditor Key
-Change this here if the access keys have expired resulting in authentication error to the
-iAuditor API
-*/
-//$this->config->item('item_name');
-$config['authorisation'] = 'Bearer d00508d44e39a51fcefa604b9540d03f02f9b9fef8a25ca84f782f61956b96f5';
-$config['template_url'] = 'https://api.safetyculture.io/templates/search?field=template_id&field=name';
-$config['audit_url'] = 'https://api.safetyculture.io/audits/';
-
 
 /*
 |--------------------------------------------------------------------------
