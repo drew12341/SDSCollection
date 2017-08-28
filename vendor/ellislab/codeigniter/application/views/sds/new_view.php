@@ -13,44 +13,48 @@
             <div>
 
                 <table style="margin: 0 auto; width:80%" class=MsoTableGrid border=1 cellspacing=0 cellpadding=2 style='border-collapse:collapse;border:none'>
-                    <tr></td><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><?=$record['substance_name']?></mark>&nbsp</td></tr>
-                    <tr></td><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Link:</td>      <td class="text-left">&nbsp<mark><a href="<?=$record['link']?>">Link to File</a></mark>&nbsp</td></tr>
-                    <tr></td><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
-                    <tr></td><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Vendor:</td>    <td class="text-left">&nbsp<mark><?=$record['vendor']?></mark>&nbsp</td></tr>
-                    <tr></td><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Expiry:</td>    <td class="text-left">&nbsp<mark><?=date("d/m/Y", strtotime($record['expiry']))?></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><a href="<?=$record['link']?>"><?=$record['substance_name']?></a></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Vendor:</td>    <td class="text-left">&nbsp<mark><?=$record['vendor']?></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Expiry:</td>    <td class="text-left">&nbsp<mark><?=date("d/m/Y", strtotime($record['expiry']))?></mark>&nbsp</td></tr>
                 </table>
 
 
             <br/>
-            <a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload another SDS</a>
+            <a href="<?php echo site_url('Sds').'/newSds/1'?>" class="btn btn-primary" style="float:left">Upload another SDS</a>
             </div>
         <?php endif; ?>
 
         <div <?php if(isset($record)): ?> style="display:none"<?php endif;?> >
             <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
 
-            <?= $this->form_builder->open_form(array('action' => ''));
+            <?= $this->form_builder->open_form(array('action' => '', 'id'=>"myDropzoneForm"));
             echo $this->form_builder->build_form_horizontal(
                 array(
                     array(
                         'id' => 'substance_name',
                     ),
-                    array(
-                        'id' => 'userfile',
-                        'type' => 'file',
-                        'label' => 'File'
-                    ),
+
                     array(
                         'id' => 'cas',
+                        'label'=>'CAS',
+                        'placeholder'=>'1234567-12-1'
                     ),
                     array(
                         'id' => 'vendor',
                     ),
                     array(
-                        'id' => 'expiry',
+                        'id' => 'published',
                         'value'=>date("d/m/Y ", time()),
                         'data-provide'=>'datepicker',
                         'data-date-format'=>"dd/mm/yyyy",
+                    ),
+
+                    array(
+                        'id' => 'userfile',
+                        'type' => 'file',
+                        'label' => 'Attach SDS (PDF)',
+
                     ),
                     array(
                         'id' => 'submit',
@@ -64,3 +68,47 @@
         </div>
     </div>
 </div>
+
+<!--<script type="text/javascript" src="--><?php //echo base_url(); ?><!--assets/themes/default/js/dropzone.js"></script>-->
+<!---->
+<!--<script type="text/javascript">-->
+<!--    Dropzone.options.myDropzoneForm = { // The camelized version of the ID of the form element-->
+<!---->
+<!--        // The configuration we've talked about above-->
+<!--        autoProcessQueue: false,-->
+<!--        uploadMultiple: true,-->
+<!--        parallelUploads: 100,-->
+<!--        maxFiles: 100,-->
+<!---->
+<!--        // The setting up of the dropzone-->
+<!--        init: function() {-->
+<!--            var myDropzone = this;-->
+<!---->
+<!--            // First change the button to actually tell Dropzone to process the queue.-->
+<!--            this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {-->
+<!--                // Make sure that the form isn't actually being sent.-->
+<!--                e.preventDefault();-->
+<!--                e.stopPropagation();-->
+<!--                myDropzone.processQueue();-->
+<!--            });-->
+<!---->
+<!--            // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead-->
+<!--            // of the sending event because uploadMultiple is set to true.-->
+<!--            this.on("sendingmultiple", function() {-->
+<!--                // Gets triggered when the form is actually being sent.-->
+<!--                // Hide the success button or the complete form.-->
+<!--            });-->
+<!--            this.on("successmultiple", function(files, response) {-->
+<!--                // Gets triggered when the files have successfully been sent.-->
+<!--                // Redirect user or notify of success.-->
+<!--            });-->
+<!--            this.on("errormultiple", function(files, response) {-->
+<!--                // Gets triggered when there was an error sending the files.-->
+<!--                // Maybe show form again, and notify user of error-->
+<!--            });-->
+<!--        }-->
+<!---->
+<!--    }-->
+<!---->
+<!---->
+<!--</script>-->

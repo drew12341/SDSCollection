@@ -29,11 +29,14 @@ class Sds extends CI_Controller
         }
     }
 
-    function newSds(){
+    function newSds($mode= 0){
         if(!$this->ion_auth->logged_in()){
             redirect('/');
         }
 
+        if($mode == 1){
+            $_SESSION['aa_message'] = null;
+        }
         $this->load->library('form_builder');
         $this->load->library('form_validation');
         $this->config->load('SDS_config');
@@ -42,7 +45,7 @@ class Sds extends CI_Controller
         $this->form_validation->set_rules('userfile', 'File','trim|xss_clean');
         $this->form_validation->set_rules('cas', 'Cas', array('required','callback_cas_check'));
         $this->form_validation->set_rules('vendor', 'Vendor','trim|required');
-        $this->form_validation->set_rules('expiry', 'Expiry','trim|required');
+        $this->form_validation->set_rules('published', 'Published','trim|required');
 
 
         if($this->form_validation->run()===FALSE)
@@ -55,9 +58,10 @@ class Sds extends CI_Controller
             $record = $this->input->post();
 
             //fix expiry date
-            $record['expiry'] = str_replace('/', '-', $record['expiry']);
-            $record['expiry'] = date("Y-m-d", strtotime($record['expiry']));
+            $record['published'] = str_replace('/', '-', $record['published']);
+            $record['published'] = date("Y-m-d", strtotime($record['published']));
 
+            $record['expiry'] = date('Y-m-d',strtotime($record['published'] . " + 5 year"));
 
             unset($record['submit']);
             $record['uploader'] = $this->ion_auth->user()->row()->id;

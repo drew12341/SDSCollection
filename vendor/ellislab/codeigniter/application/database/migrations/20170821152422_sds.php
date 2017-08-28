@@ -32,6 +32,10 @@ class Migration_sds extends CI_Migration {
                 'constraint'=>100,
                 'null'=>true
             ),
+            'published'=>array(
+                'type'=>'datetime',
+                'null'=>true
+            ),
             'expiry'=>array(
                 'type'=>'datetime',
                 'null'=>true

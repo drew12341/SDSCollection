@@ -14,10 +14,24 @@ class Sds_model extends CI_Model
 
 
     public function getSDS(){
+        $expire_time = strtotime("+6 year");
+        $before = date('Y-m-d', $expire_time);
+
+        $this->db->join('users', 'users.id=sds.uploader');
+        $this->db->where('published <',$before);
         $this->db->order_by('id');
         $query = $this->db->get('sds');
 
         $results = $query->result_array();
+        $now = strtotime("now");
+        foreach ($results as &$result){
+            if(strtotime($result['expiry']) < $now){
+                $result['expired'] = true;
+            }
+            else{
+                $result['expired'] = false;
+            }
+        }
         return $results;
     }
 
