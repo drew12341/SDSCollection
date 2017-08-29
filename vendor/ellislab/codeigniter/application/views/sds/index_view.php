@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-
+<?php if($this->ion_auth->logged_in()): ?>
 <a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a>
+<?php endif; ?>
 <h4>UTS Safety Data Sheet (SDS) Library</h4>
 <table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>

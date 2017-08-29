@@ -18,13 +18,13 @@ class Sds extends CI_Controller
 
     public function cas_check($str)
     {
-        if(preg_match('/^[a-zA-Z0-9]{7}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}+$/', $str ) )
+        if(preg_match('/^[a-zA-Z0-9]{1,7}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}+$/', $str ) )
         {
             return TRUE;
         }
         else
         {
-            $this->form_validation->set_message('cas_check', 'The {field} field must be in the format XXXXXXX-XX-X');
+            $this->form_validation->set_message('cas_check', 'The {field} field must be in the format (1-7 Digits)-(2 Digits)-(1 Digit)');
             return FALSE;
         }
     }
