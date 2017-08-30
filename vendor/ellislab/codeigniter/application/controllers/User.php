@@ -75,7 +75,7 @@ class User extends CI_Controller  {
 
     public function edit($userid)
     {
-        if($this->ion_auth->is_admin()===FALSE)
+        if($userid != $this->ion_auth->user()->row()->id && $this->ion_auth->is_admin()===FALSE)
         {
             redirect('/');
         }
