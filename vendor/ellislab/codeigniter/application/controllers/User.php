@@ -80,6 +80,7 @@ class User extends CI_Controller  {
             redirect('/');
         }
 
+        
         $this->load->library('form_builder');
         $this->load->library('form_validation');
 
