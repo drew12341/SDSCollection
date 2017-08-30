@@ -80,7 +80,7 @@ class User extends CI_Controller  {
             redirect('/');
         }
 
-        
+
         $this->load->library('form_builder');
         $this->load->library('form_validation');
 
@@ -121,16 +121,17 @@ class User extends CI_Controller  {
             //fix up groups
             $groups = $this->ion_auth->listGroups();
 
-            $ids = array_keys($groups);
+            //$ids = array_keys($groups);
 
 
-            $this->ion_auth->remove_from_group(false, $id);
-            $this->ion_auth->add_to_group($this->input->post('group'), $id);
+            //$this->ion_auth->remove_from_group(false, $id);
+            //$this->ion_auth->add_to_group($this->input->post('group'), $id);
 
-            $dataSet['user_id'] = $id;
-            $data = array('dataSet'=>$this->ion_auth->getUser($userid),
+
+            $data = array('dataSet'=>$this->ion_auth->getUser($id),
                 'groups'=>$groups);
-            $this->load->view('user/edit_view', $data);
+            //$this->load->view('user/edit_view', $data);
+            redirect(site_url('user/edit/').$id);
         }
 
 
