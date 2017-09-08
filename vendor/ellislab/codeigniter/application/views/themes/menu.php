@@ -16,13 +16,13 @@
           <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav">
 
-                  <?php if($this->ion_auth->logged_in()): ?>
+
                       <li>
-                          <a id="defaulttab" class="page-scroll" href="<?php echo site_url('Sds'); ?>">Home</a>
+                          <a id="defaulttab" class="page-scroll" href="<?php echo site_url('Sds'); ?>">SDS Collection</a>
                       </li>
-                      
 
 
+                  <?php if($this->ion_auth->logged_in()): ?>
 
 
 

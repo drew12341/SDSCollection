@@ -87,8 +87,8 @@ class User extends CI_Controller  {
         $this->form_validation->set_rules('first_name', 'First name','trim|required');
         $this->form_validation->set_rules('last_name', 'Last name','trim|required');
 
-        $this->form_validation->set_rules('email','Email','trim|valid_email|required');
-
+        //$this->form_validation->set_rules('email','Email','trim|valid_email|required');
+        $this->form_validation->set_rules('email','Email', array('trim','valid_email','required','is_unique[users.email]','callback_email_check'));
 
         if($this->form_validation->run()===FALSE)
         {
@@ -145,6 +145,16 @@ class User extends CI_Controller  {
 
     }
 
+
+
+    function email_check($str)
+    {
+        if (stristr($str,'@uts.edu.au') !== false) return true;
+
+        $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au suffix');
+        return FALSE;
+    }
+
     public function register()
     {
 
@@ -152,9 +162,10 @@ class User extends CI_Controller  {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('first_name', 'First name','trim|required');
         $this->form_validation->set_rules('last_name', 'Last name','trim|required');
-        $this->form_validation->set_rules('email','Email','trim|valid_email|required|is_unique[users.email]');
+        $this->form_validation->set_rules('email','Email', array('trim','valid_email','required','is_unique[users.email]','callback_email_check'));
         $this->form_validation->set_rules('password','Password','trim|min_length[8]|max_length[20]|required');
         $this->form_validation->set_rules('confirm_password','Confirm password','trim|matches[password]|required');
+        //$this->form_validation->set_rules('email', 'Email', 'callback_email_check');
 
         if($this->form_validation->run()===FALSE)
         {

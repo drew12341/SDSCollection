@@ -35,6 +35,15 @@ class Sds_model extends CI_Model
         return $results;
     }
 
+    public function getSingleSDS($id){
+
+        $this->db->where('id',$id);
+        $query = $this->db->get('sds');
+
+        $results = $query->result_array();
+        return $results[0];
+    }
+
     public function addSDS($record){
 
 

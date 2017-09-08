@@ -8,7 +8,7 @@
     <thead>
 
     <tr>
-        <th style="display:none">&nbsp;</th>
+        <th >&nbsp;</th>
         <th>Substance Name</th>
 
 
@@ -24,8 +24,10 @@
 
     <?php foreach($sds as $i):?>
         <tr>
-            <td style="display:none">
-                <a class="btn btn-primary" href="<?php echo site_url('Sds').'/edit/'.$i['id'];?>">Open</a>
+            <td >
+                <?php if($this->ion_auth->logged_in() && $this->ion_auth->user()->row()->id == $i['uploader']): ?>
+                    <a class="btn btn-primary" href="<?php echo site_url('Sds').'/editSDS/'.$i['id'];?>">Edit</a>
+                <?php endif; ?>
             </td>
             <td><a href="<?=$i['link']?>" ><?=$i['substance_name']?></a></td>
 
@@ -45,7 +47,7 @@
     </tbody>
     <tfoot>
     <tr>
-        <th style="display:none">&nbsp;</th>
+        <th >&nbsp;</th>
         <th>Substance Name</th>
 
 
@@ -62,7 +64,7 @@
 $(document).ready(function() {
 
 $('.table').DataTable({
-"order": [[0, "desc"]],
+"order": [[1, "asc"]],
     columnDefs: [{
         targets: [4, 5  ],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),
@@ -72,7 +74,8 @@ $('.table').DataTable({
             $(row).addClass( 'expired' );
         }
 
-    }
+    },
+    "lengthMenu": [50, 100, 150, 200]
 
 });
 
