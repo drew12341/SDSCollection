@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <h1>Log In</h1>
-      
+
         <?php if (isset($_SESSION['auth_message'])) : ?>
             <div class="alert alert-warning"><?=$_SESSION['auth_message'];?>
             </div>
