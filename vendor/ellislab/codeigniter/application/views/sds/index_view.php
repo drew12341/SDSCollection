@@ -25,8 +25,8 @@
     <?php foreach($sds as $i):?>
         <tr>
             <td >
-                <?php if($this->ion_auth->logged_in() && $this->ion_auth->user()->row()->id == $i['uploader']): ?>
-                    <a class="btn btn-primary" href="<?php echo site_url('Sds').'/editSDS/'.$i['id'];?>">Edit</a>
+                <?php if($this->ion_auth->logged_in() && ($this->ion_auth->user()->row()->id == $i['uploader'] || $this->ion_auth->is_admin())): ?>
+                    <a class="btn btn-primary" href="<?php echo site_url('Sds').'/editSDS/'.$i['sds_id'];?>">Edit</a>
                 <?php endif; ?>
             </td>
             <td><a href="<?=$i['link']?>" ><?=$i['substance_name']?></a></td>
@@ -64,7 +64,7 @@
 $(document).ready(function() {
 
 $('.table').DataTable({
-"order": [[1, "asc"]],
+"order": [[4, "desc"]],
     columnDefs: [{
         targets: [4, 5  ],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),

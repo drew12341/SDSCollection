@@ -97,7 +97,8 @@ class Sds extends CI_Controller
 
                 $link = $this->config->item('sds_download_url').$this->config->item('foldername').'/download?path=%2F&files='.$filename;
                 $record['link'] = $link;
-                $this->Sds_model->updateSDS($record, $id);
+                $record['id'] = $id;
+                $this->Sds_model->updateSDS($record);
 
                 $_SESSION['aa_message'] = 'SDS Successfully Added';
                 $data = array('record'=>$record);
@@ -126,6 +127,7 @@ class Sds extends CI_Controller
 
         if($this->form_validation->run()===FALSE)
         {
+            $_SESSION['edit_message'] = null;
             $data = array('dataSet'=>$this->Sds_model->getSingleSDS($id));
             $this->load->view('sds/edit_view', $data);
         }
@@ -140,45 +142,52 @@ class Sds extends CI_Controller
             $record['expiry'] = date('Y-m-d',strtotime($record['published'] . " + 5 year"));
 
             unset($record['submit']);
-            $record['uploader'] = $this->ion_auth->user()->row()->id;
+            //$record['uploader'] = $this->ion_auth->user()->row()->id;
 
             $config['upload_path'] = APPPATH.'../tmp/';
             $config['allowed_types'] = 'pdf|png';
 
             $this->load->library('upload', $config);
 
-            if (!$this->upload->do_upload())
-            {
-                $error = array('error' => $this->upload->display_errors());
+            //if the file is being replaced (i.e., field not empty) then upload and link
+            if (isset($_FILES['userfile']['name']) && !empty($_FILES['userfile']['name'])) {
+                if (!$this->upload->do_upload()) {
 
-                $_SESSION['aa_message'] = $this->upload->display_errors();
-                $this->load->view('sds/edit_view');
+                    $_SESSION['edit_message'] = $this->upload->display_errors();
+                    $data = array('dataSet'=>$record);
+                    $this->load->view('sds/edit_view', $data);
+                } else {
+
+
+
+                    $filename = $record['id'] . "_" . $this->upload->data('orig_name');
+
+                    $url = $this->config->item('sds_url') . $filename;
+                    $client = new Guzzle\Http\Client();
+                    $client->setDefaultOption('auth', array(
+                        $this->config->item('foldername'), $this->config->item('password')
+                    ));
+                    $request = $client->put($url);
+                    $request->setBody(fopen($this->upload->data('full_path'), 'r'));
+                    //echo $request;
+                    $res = $request->send();
+
+                    $link = $this->config->item('sds_download_url') . $this->config->item('foldername') . '/download?path=%2F&files=' . $filename;
+                    $record['link'] = $link;
+
+                    $this->Sds_model->updateSDS($record);
+
+                    $_SESSION['edit_message'] = 'SDS Successfully Updated';
+                    $data = array('dataSet'=>$record);
+                    $this->load->view('sds/edit_view', $data);
+
+                }
             }
-            else
-            {
-                $id = $this->Sds_model->addSDS($record);
-
-
-                $filename = $id."_".$this->upload->data('orig_name');
-
-                $url = $this->config->item('sds_url').$filename;
-                $client = new Guzzle\Http\Client();
-                $client->setDefaultOption('auth', array(
-                    $this->config->item('foldername'),$this->config->item('password')
-                ));
-                $request = $client->put($url);
-                $request->setBody(fopen($this->upload->data('full_path'), 'r'));
-                //echo $request;
-                $res = $request->send();
-
-                $link = $this->config->item('sds_download_url').$this->config->item('foldername').'/download?path=%2F&files='.$filename;
-                $record['link'] = $link;
-                $this->Sds_model->updateSDS($record, $id);
-
-                $_SESSION['aa_message'] = 'SDS Successfully Added';
-                $data = array('record'=>$record);
-                $this->load->view('sds/new_view', $data);
-
+            else{
+                $this->Sds_model->updateSDS($record);
+                $_SESSION['edit_message'] = 'SDS Successfully Updated 2';
+                $data = array('dataSet'=>$record);
+                $this->load->view('sds/edit_view', $data);
             }
         }
     }

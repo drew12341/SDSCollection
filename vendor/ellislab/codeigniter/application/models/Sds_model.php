@@ -18,6 +18,7 @@ class Sds_model extends CI_Model
         $before = date('Y-m-d', $expire_time);
 
         $this->db->join('users', 'users.id=sds.uploader');
+        $this->db->select('users.*, sds.*, users.id as user_id, sds.id as sds_id');
         $this->db->where('published <',$before);
         $this->db->order_by('id');
         $query = $this->db->get('sds');
@@ -51,9 +52,10 @@ class Sds_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function updateSDS($record, $id){
-
-
-        return $this->db->update('sds', $record, array('id'=>$id));
+    public function updateSDS($record){
+        $id = $record['id'];
+        unset($record['id']);
+        $this->db->update('sds', $record, array('id'=>$id));
+        return $id;
     }
 }

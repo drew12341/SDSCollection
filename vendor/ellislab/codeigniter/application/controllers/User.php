@@ -149,7 +149,9 @@ class User extends CI_Controller  {
 
     function email_check($str)
     {
-        if (stristr($str,'@uts.edu.au') !== false) return true;
+        //TODO: back this out
+        //if (stristr($str,'@uts.edu.au') !== false) return true;
+        return true;
 
         $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au suffix');
         return FALSE;
@@ -198,15 +200,15 @@ class User extends CI_Controller  {
                 $this->session->mark_as_flash('register_message');
 
                 //redirect('user/edit/'.$userid);
-                //$this->load->view('user/register_view');
+                $this->load->view('user/register_view');
                 //Auto login after register
-                if ($this->ion_auth->login($email, $password, True))
-                {
-                    redirect('sds');
-                }
-                else{
-                    redirect('user/login');
-                }
+//                if ($this->ion_auth->login($email, $password, True))
+//                {
+//                    redirect('sds');
+//                }
+//                else{
+//                    redirect('user/login');
+//                }
             }
             else
             {

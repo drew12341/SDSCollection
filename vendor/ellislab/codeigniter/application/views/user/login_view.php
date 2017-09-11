@@ -2,9 +2,14 @@
 <div class="row">
     <div class="col-md-12">
         <h1>Log In</h1>
-        <?php
-        echo isset($_SESSION['auth_message']) ? $_SESSION['auth_message'] : FALSE;
-        ?>
+      
+        <?php if (isset($_SESSION['auth_message'])) : ?>
+            <div class="alert alert-warning"><?=$_SESSION['auth_message'];?>
+            </div>
+        <?php endif; ?>
+
+
+        <div id="infoMessage"><?php if (isset($message)){ echo $message; }?></div>
         <?= $this->form_builder->open_form(array('action' => ''));
         echo $this->form_builder->build_form_horizontal(
             array(
