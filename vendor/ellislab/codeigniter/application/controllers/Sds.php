@@ -20,6 +20,34 @@ class Sds extends CI_Controller
     {
         if(preg_match('/^[a-zA-Z0-9]{1,7}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}+$/', $str ) )
         {
+            //Split by '-'
+            $parts = explode('-',$str);
+
+            //Then separate into parts
+            $prefix = $parts[0];
+            $mid = $parts[1];
+            $checksum = $parts[2];
+
+            //split into individual digits and then reverse order to make calculation easier
+            $mid_r = array_reverse(str_split($mid));
+            $prefix_r = array_reverse(str_split($prefix));
+
+
+            $total = 0;
+            //essentially working backwards here - doing the 1*a, 2*b
+            for($i = 0; $i< count($mid_r); $i++){
+                $total += ($i + 1) * $mid_r[$i];
+            }
+            //now doing 3*c, 4*d etc until we run out of digits
+            for($i = 0; $i< count($prefix_r); $i++){
+                $total += ($i + 3) * $prefix_r[$i];
+            }
+            //Check against mod 10
+            if ($total % 10 != $checksum){
+                $this->form_validation->set_message('cas_check', 'The {field} field does not match checksum - please check that it is entered correctly');
+                return FALSE;
+            }
+
             return TRUE;
         }
         else

@@ -1,6 +1,31 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
+<?php
 
+//CAS logic check
+//$cas = "7732-18-5";
+//
+//$parts = explode('-',$cas);
+//
+//$prefix = $parts[0];
+//$mid = $parts[1];
+//$checksum = $parts[2];
+//
+//$mid_r = array_reverse(str_split($mid));
+//$prefix_r = array_reverse(str_split($prefix));
+//
+//$total = 0;
+//for($i = 0; $i< count($mid_r); $i++){
+//    $total += ($i + 1) * $mid_r[$i];
+//}
+//for($i = 0; $i< count($prefix_r); $i++){
+//    $total += ($i + 3) * $prefix_r[$i];
+//}
+//echo $total;
+//echo '<br/>';
+//echo $total % 10;
+
+?>
 <div class="row">
     <div class="col-lg-12">
         <h1>Edit SDS</h1>
