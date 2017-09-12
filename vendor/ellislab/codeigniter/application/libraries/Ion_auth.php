@@ -77,7 +77,7 @@ class Ion_auth
 
 		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
 		{
-			$this->email->initialize($email_config);
+			//$this->email->initialize($email_config);
 		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
