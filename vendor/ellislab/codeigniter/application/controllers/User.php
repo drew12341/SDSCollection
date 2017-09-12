@@ -88,7 +88,7 @@ class User extends CI_Controller  {
         $this->form_validation->set_rules('last_name', 'Last name','trim|required');
 
         //$this->form_validation->set_rules('email','Email','trim|valid_email|required');
-        $this->form_validation->set_rules('email','Email', array('trim','valid_email','required','is_unique[users.email]','callback_email_check'));
+        $this->form_validation->set_rules('email','Email', array('trim','valid_email','required','callback_email_check'));
 
         if($this->form_validation->run()===FALSE)
         {
