@@ -29,7 +29,7 @@ class User extends CI_Controller  {
     }
 
     public function changepassword($userid){
-        if($this->ion_auth->is_admin()===FALSE)
+        if($userid != $this->ion_auth->user()->row()->id && $this->ion_auth->is_admin()===FALSE)
         {
             redirect('/');
         }
@@ -79,7 +79,6 @@ class User extends CI_Controller  {
         {
             redirect('/');
         }
-
 
         $this->load->library('form_builder');
         $this->load->library('form_validation');
@@ -150,7 +149,7 @@ class User extends CI_Controller  {
     function email_check($str)
     {
         if (stristr($str,'@uts.edu.au') !== false) return true;
-        return true;
+
 
         $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au suffix');
         return FALSE;
