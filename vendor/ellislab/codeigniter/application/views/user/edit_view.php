@@ -11,7 +11,7 @@
 
         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
 
-        <?= $this->form_builder->open_form(array('action' => site_url("User/edit").$dataSet["user_id"]));
+        <?= $this->form_builder->open_form(array('action' => site_url("User/edit/").$dataSet["user_id"]));
         echo $this->form_builder->build_form_horizontal(
             array(
                 array(

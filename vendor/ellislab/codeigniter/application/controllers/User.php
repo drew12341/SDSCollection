@@ -148,7 +148,11 @@ class User extends CI_Controller  {
 
     function email_check($str)
     {
-        if (stristr($str,'@uts.edu.au') !== false) return true;
+        $parts = explode('@',$str);
+
+        if(isset($parts[1]) && $parts[1] == 'uts.edu.au') return true;
+
+        //if (stristr($str,'@uts.edu.au') !== false) return true;
 
 
         $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au suffix');
