@@ -1,0 +1,73 @@
+SETUP INSTRUCTIONS FOR UTS
+==========================
+
+1) Open remote access
+2) Create folder in inetpub directory
+3) Share with admin (DLJ) for full access
+4) Share with IIS_IUSRS for read access
+5) Close remote
+6) Copy all the files to new network folder
+7) Open IIS manager
+- In Application Pools add new application
+- Add new virtual directory with physical path .../inetpub/..../ellislab/codeigniter
+8) Change security of /vendor/ellislab/codeigniter to write/modify
+
+
+
+
+
+INFORMATION ABOUT THE DIRECTORIES USED
+======================================
+
+**Root directory**
+\codeigniter
+
+**Config file for cloudstor access**
+\codeigniter\application\config\SDS_config.php
+
+**Temporary files to clean out periodically**
+\codeigniter\tmp
+
+**Code that displays content**
+\codeigniter\application\views
+
+**Menu bar**
+\codeigniter\application\views\themes\menu.php
+
+**Starting Page**
+\codeigniter\application\views\themes\default.php
+
+**Styles**
+\codeigniter\assets\themes\default\css\additions.css 
+- top bar colour - line 19
+- buttons colours - line 24, 29, 34
+
+**Logos**
+\codeigniter\assets\images
+
+
+EMAIL CONFIGURATION
+===================
+
+**Email content**
+\codeigniter\application\views\auth\email
+
+**Email sender and title**
+\codeigniter\application\config\ion_auth.php
+
+**Email wording**
+\codeigniter\application\language\english
+
+**Email settings**
+\codeigniter\application\config\email.php.
+Only changes to default are:
+$config['smtp_host'] = 'postoffice.uts.edu.au';
+$config['smtp_port'] = 25;
+
+**NO LONGER USED FOR EMAIL SETTINGS**
+\codeigniter\application\views\emails
+
+**UTS mailserver settings**
+\codeigniter\application\models\Mail_model.php
+
+
