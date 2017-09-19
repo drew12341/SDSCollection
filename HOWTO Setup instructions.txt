@@ -13,6 +13,10 @@ SETUP INSTRUCTIONS FOR UTS
 8) Change security of /vendor/ellislab/codeigniter to write/modify
 
 
+CREATE DATABASE
+===============
+you can create a ‘new’ DB by running the migration scripts. System uses SQLite, to set up tables navigate to webroot and run:
+php index.php tools migrate or alternatively, hit the URL: [baseurl]/tools/migrate
 
 
 

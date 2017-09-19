@@ -14,7 +14,7 @@
 
                 <table style="margin: 0 auto; width:80%" class=MsoTableGrid border=1 cellspacing=0 cellpadding=2 style='border-collapse:collapse;border:none'>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><a href="<?=$record['link']?>"><?=$record['substance_name']?></a></mark>&nbsp</td></tr>
-                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS No.:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Vendor:</td>    <td class="text-left">&nbsp<mark><?=$record['vendor']?></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Expiry:</td>    <td class="text-left">&nbsp<mark><?=date("d/m/Y", strtotime($record['expiry']))?></mark>&nbsp</td></tr>
                 </table>
@@ -37,7 +37,7 @@
 
                     array(
                         'id' => 'cas',
-                        'label'=>'CAS',
+                        'label'=>'CAS No.',
                         'placeholder'=>'1234567-12-1'
                     ),
                     array(
@@ -45,7 +45,7 @@
                     ),
                     array(
                         'id' => 'published',
-                        'value'=>date("d/m/Y ", time()),
+						'value'=>date("d/m/Y ", time()),
                         'data-provide'=>'datepicker',
                         'data-date-format'=>"dd/mm/yyyy",
                     ),
@@ -65,9 +65,20 @@
             );
             echo $this->form_builder->close_form();
             ?>
+
+					<div align = "left">
+					<strong>NOTE:</strong></BR>
+					- Only use SDS from the vendor/supplier, not a generic SDS.</BR>
+					- <i>Substance Name</i> is the main product identifier on the SDS.</BR>
+					- <i>CAS-No.</i> is found in section 3 of the SDS.</BR>
+					- <i>Published Date</i> (aka Creation Date or Revision Date) usually found in header or footer of SDS.
+					</div>
+
         </div>
     </div>
 </div>
+
+
 
 <!--<script type="text/javascript" src="--><?php //echo base_url(); ?><!--assets/themes/default/js/dropzone.js"></script>-->
 <!---->
