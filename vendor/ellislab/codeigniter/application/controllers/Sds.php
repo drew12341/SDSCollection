@@ -219,4 +219,12 @@ class Sds extends CI_Controller
             }
         }
     }
+
+    public function delete_sds($id){
+        $this->db->delete('sds', array('id' => $id));
+        $_SESSION['sds_message'] = 'SDS has been deleted';
+        $this->session->mark_as_flash('sds_message');
+        redirect('Sds');
+
+    }
 }

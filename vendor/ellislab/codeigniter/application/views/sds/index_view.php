@@ -27,6 +27,15 @@
             <td >
                 <?php if($this->ion_auth->logged_in() && ($this->ion_auth->user()->row()->id == $i['uploader'] || $this->ion_auth->is_admin())): ?>
                     <a class="btn btn-primary" href="<?php echo site_url('Sds').'/editSDS/'.$i['sds_id'];?>">Edit</a>
+                    <a
+                        class="btn btn-primary"
+                        data-toggle="confirmation"
+                        data-btn-ok-label="Delete" data-btn-ok-icon="glyphicon glyphicon-share-alt"
+                        data-btn-ok-class="btn-primary"
+                        data-btn-cancel-label="Cancel" data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
+                        data-btn-cancel-class="btn-danger"
+                        data-title="Warning" data-content="This will delete this SDS"
+                        href="<?php echo site_url('Sds').'/delete_sds/'.$i['sds_id']?>">Delete</a>
                 <?php endif; ?>
             </td>
             <td><a href="<?=$i['link']?>" ><?=$i['substance_name']?></a></td>
@@ -79,5 +88,10 @@ $('.table').DataTable({
 
 });
 
+});
+
+$('[data-toggle=confirmation]').confirmation({
+    rootSelector: '[data-toggle=confirmation]',
+    // other options
 });
 </script>
