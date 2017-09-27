@@ -38,6 +38,8 @@
 ?>
 
         <!--- Loaded manually -->
+		<link rel="icon"  type="image/x-icon"  href="<?php echo base_url(); ?>assets/images/favicon.ico" />
+		<link rel="apple-touch-icon"           href="<?php echo base_url(); ?>assets/images/apple-touch-icon.png">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/themes/default/css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/themes/default/css/dataTables.bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/themes/default/css/jquery.dataTables.yadcf.css"/>

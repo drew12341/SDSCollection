@@ -1,7 +1,7 @@
 <?php
-$config['protocol'] = 'SMTP';
-$config['smtp_host'] = '';
-$config['smtp_port'] = 587;
+$config['protocol'] = 'smtp';
+$config['smtp_host'] = 'postoffice.uts.edu.au';
+$config['smtp_port'] = 25;
 $config['smtp_user'] = '';
 $config['smtp_password'] = '';
 $config['mailtype'] = 'html';

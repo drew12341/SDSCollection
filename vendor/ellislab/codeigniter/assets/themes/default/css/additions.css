@@ -17,25 +17,25 @@
 }
 
 .navbar-default {
-    background-color: #3C9D92;
+    background-color: #0f4beb;
     border-color: #2d746a;
 }
 
 .btn-primary{
-    background-color: #3C9D92;
+    background-color: #0f4beb;
     border-color: #2d746a;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #3db4a9;
+    background-color: #5380f9;
     border-color: #339b90;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #3db4a9;
+    background-color: #0f4beb;
     border-color: #339b90;
 }
 
