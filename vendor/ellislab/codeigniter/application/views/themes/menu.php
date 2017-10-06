@@ -54,12 +54,12 @@
                             <li ><a class="page-scroll" href="<?php echo site_url('User/edit/').$this->ion_auth->user()->row()->id; ?>"><span class="glyphicon glyphicon-user"/></a>
                             </li>
                       <li >
-                          <a class="page-scroll" href="<?php echo site_url('User/logout'); ?>"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+                          <a class="page-scroll" href="<?php echo site_url('User/logout'); ?>">[Log out]&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
                       </li>
 
                     <?php else: ?>
                       <li>
-                          <a class="page-scroll" href="<?php echo site_url('User/login'); ?>"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
+                          <a class="page-scroll" href="<?php echo site_url('User/login'); ?>">[Log in]&nbsp;&nbsp;<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
                       </li>
 
                         <?php endif; ?>

@@ -5,7 +5,7 @@ Codeigniter/PHP5.3/Bootstrap
 Installation:
 - Pull down files from GitHub
 - Command prompt to the project directory
-- Point webroot to `/iAuditer-Action-Tracker/vendor/ellislab/codeigniter/`
+- Point webroot to `/SDSCollection/vendor/ellislab/codeigniter/`
 
 System uses SQLite, to set up tables navigate to webroot and run:
 
@@ -17,10 +17,7 @@ This will create the table structure and also a super-user:
 `Email: admin@admin.com
 Password: password`
 
-Sign in with the admin account, and then navigate to the administrator menu function
-'Reload Audits'
 
-This will trigger a reload of all template and audit data from the iAuditor system (may take 2-3 minutes).
 
 
 
