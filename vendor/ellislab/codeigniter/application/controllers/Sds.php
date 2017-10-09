@@ -213,7 +213,7 @@ class Sds extends CI_Controller
             }
             else{
                 $this->Sds_model->updateSDS($record);
-                $_SESSION['edit_message'] = 'SDS Successfully Updated 2';
+                $_SESSION['edit_message'] = 'SDS Successfully Updated';
                 $data = array('dataSet'=>$record);
                 $this->load->view('sds/edit_view', $data);
             }

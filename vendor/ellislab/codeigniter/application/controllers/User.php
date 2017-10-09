@@ -144,8 +144,6 @@ class User extends CI_Controller  {
 
     }
 
-    
-
 
     function email_check($str)
     {

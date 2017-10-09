@@ -495,13 +495,16 @@ class Form_builder {
         if (FALSE === ($OBJ = & _get_validation_object())) {
             if (isset($_POST[$field])) {
                 return html_escape($_POST[$field]);
+                //return $_POST[$field];
             } elseif (isset($_GET[$field])) {
                 return html_escape($_GET[$field]);
+                //return $_GET[$field];
             }
             return $default;
         }
 
-        return html_escape($OBJ->set_value($field, $default));
+        //return html_escape($OBJ->set_value($field, $default));
+        return $OBJ->set_value($field, $default);
     }
 
     function squish_HTML($html) {
