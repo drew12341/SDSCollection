@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Default" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$/vendor/ellislab/codeigniter" host="192.168.10.6" port="1024">
-    <method />
-  </configuration>
-</component>

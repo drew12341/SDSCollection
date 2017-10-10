@@ -3,7 +3,9 @@
 <?php if($this->ion_auth->logged_in()): ?>
 <a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a>
 <?php endif; ?>
-<h4>UTS Safety Data Sheet (SDS) Collection</h4>
+
+<h4><p style="text-align:center">UTS Safety Data Sheet (SDS) Collection</p></h4>
+
 <table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
 

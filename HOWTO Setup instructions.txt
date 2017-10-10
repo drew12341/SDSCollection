@@ -11,6 +11,8 @@ SETUP INSTRUCTIONS FOR UTS
 - In Application Pools add new application
 - Add new virtual directory with physical path .../inetpub/..../ellislab/codeigniter
 8) Change security of /vendor/ellislab/codeigniter to write/modify
+9) Setup Cloudstor directory
+10) Configure email and Cloudstor settings as shown below
 
 
 CREATE DATABASE
@@ -18,6 +20,19 @@ CREATE DATABASE
 you can create a ‘new’ DB by running the migration scripts. System uses SQLite, to set up tables navigate to webroot and run:
 php index.php tools migrate or alternatively, hit the URL: [baseurl]/tools/migrate
 
+
+CLOUDSTOR
+=========
+Open https://cloudstor.aarnet.edu.au
+Create a dirtectory.
+Select information on your directory. 
+Check boxes for Share Link and Allow Editing.
+Copy link for this app config file.
+
+Was lRqlE8FPZr2HFk1
+https://cloudstor.aarnet.edu.au/plus/index.php/s/EmoKH8Bq7UTR8o9
+
+Do not reshare as Cloudstor will reset this code and you will have to change in all the database links!!! By edit in CSV then import wizard.
 
 
 INFORMATION ABOUT THE DIRECTORIES USED
@@ -75,3 +90,5 @@ $config['smtp_port'] = 25;
 \codeigniter\application\models\Mail_model.php
 
 
+**CI_Sessions**
+\codeigniter\application\ci_sessions
