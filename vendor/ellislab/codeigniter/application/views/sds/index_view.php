@@ -41,7 +41,7 @@
                         href="<?php echo site_url('Sds').'/delete_sds/'.$i['sds_id']?>">Delete</a>
                 <?php endif; ?>
             </td>
-            <td><a href="<?=$i['link']?>" ><?=$i['substance_name']?></a></td>
+            <td><a href="<?=$i['link']?>" target = "_blank"><?=$i['substance_name']?></a></td>
 
 
             <td><?=$i['cas']?></td>
