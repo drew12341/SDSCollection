@@ -44,7 +44,16 @@
             <td><a href="<?=$i['link']?>" target = "_blank"><?=$i['substance_name']?></a></td>
 
 
+<!--
             <td><?=$i['cas']?></td>
+-->
+
+		<?php if ($i['cas'] == "000-00-0" or $i['cas'] == "00-00-0") : ?>
+			<td>No CAS</td>
+		<?php else : ?>
+			<td><?=$i['cas']?></td>
+		<?php endif; ?>
+
 
 
             <td><?=$i['vendor']?></td>
