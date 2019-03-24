@@ -26,12 +26,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 if(ISSET($_SERVER['HTTP_HOST'])) {
-    $config['base_url'] = "http://" . $_SERVER['HTTP_HOST'];
+    //$config['base_url'] = "http://" . $_SERVER['HTTP_HOST'];
+$config['base_url'] = (isset($_SERVER['HTTPS']) ? "https://" : "http://"). $_SERVER['HTTP_HOST'];
     $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
 }
 else{
     $config['base_url'] = '';
 }
+
 //$config['base_url'] = '';
 /*
 |--------------------------------------------------------------------------
