@@ -17,6 +17,7 @@ class Tools extends CI_Controller {
     }
 
 
+
     function cronTasks(){
         //$this->load->model('task_model');
         //echo json_encode($this->task_model->CreateTasks());

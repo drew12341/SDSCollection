@@ -94,7 +94,7 @@ class Sds extends CI_Controller
             unset($record['submit']);
             $record['uploader'] = $this->ion_auth->user()->row()->id;
 
-            $config['upload_path'] = APPPATH.'../tmp/';
+            $config['upload_path'] = APPPATH.'../files/';
             $config['allowed_types'] = 'pdf|png';
 
             $this->load->library('upload', $config);
@@ -111,22 +111,27 @@ class Sds extends CI_Controller
                 $id = $this->Sds_model->addSDS($record);
 
 
-                $filename = $id."_".$this->upload->data('orig_name');
 
-                $url = $this->config->item('sds_url').$filename;
-                $client = new Guzzle\Http\Client();
-                $client->setDefaultOption('auth', array(
-                    $this->config->item('foldername'),$this->config->item('password')
-                ));
-                $request = $client->put($url);
-                $request->setBody(fopen($this->upload->data('full_path'), 'r'));
-                //echo $request;
-                $res = $request->send();
 
-                $link = $this->config->item('sds_download_url').$this->config->item('foldername').'/download?path=%2F&files='.$filename;
-                $record['link'] = $link;
+                //$filename = $id."_".$this->upload->data('orig_name');
+                $filename = $this->upload->data('orig_name');
+                $record['filename'] = $filename;
                 $record['id'] = $id;
                 $this->Sds_model->updateSDS($record);
+//
+//                $url = $this->config->item('sds_url').$filename;
+//                $client = new Guzzle\Http\Client();
+//                $client->setDefaultOption('auth', array(
+//                    $this->config->item('foldername'),$this->config->item('password')
+//                ));
+//                $request = $client->put($url);
+//                $request->setBody(fopen($this->upload->data('full_path'), 'r'));
+//                //echo $request;
+//                $res = $request->send();
+//
+//                $link = $this->config->item('sds_download_url').$this->config->item('foldername').'/download?path=%2F&files='.$filename;
+//                $record['link'] = $link;
+
 
                 $_SESSION['aa_message'] = 'SDS Successfully Added';
                 $data = array('record'=>$record);
@@ -134,6 +139,14 @@ class Sds extends CI_Controller
 
             }
         }
+    }
+
+    function get_file($sds_id){
+        $this->load->helper('download');
+        $sds = $this->Sds_model->getSingleSDS($sds_id);
+
+        $url = APPPATH .'../files/'.$sds['filename'];
+        force_download($url, NULL);
     }
 
     function editSds($id){
@@ -172,7 +185,7 @@ class Sds extends CI_Controller
             unset($record['submit']);
             //$record['uploader'] = $this->ion_auth->user()->row()->id;
 
-            $config['upload_path'] = APPPATH.'../tmp/';
+            $config['upload_path'] = APPPATH.'../files/';
             $config['allowed_types'] = 'pdf|png';
 
             $this->load->library('upload', $config);
@@ -188,22 +201,26 @@ class Sds extends CI_Controller
 
 
 
-                    $filename = $record['id'] . "_" . $this->upload->data('orig_name');
-
-                    $url = $this->config->item('sds_url') . $filename;
-                    $client = new Guzzle\Http\Client();
-                    $client->setDefaultOption('auth', array(
-                        $this->config->item('foldername'), $this->config->item('password')
-                    ));
-                    $request = $client->put($url);
-                    $request->setBody(fopen($this->upload->data('full_path'), 'r'));
-                    //echo $request;
-                    $res = $request->send();
-
-                    $link = $this->config->item('sds_download_url') . $this->config->item('foldername') . '/download?path=%2F&files=' . $filename;
-                    $record['link'] = $link;
-
+                    //$filename = $record['id'] . "_" . $this->upload->data('orig_name');
+                    $filename = $this->upload->data('orig_name');
+                    $record['filename'] = $filename;
+                    $record['id'] = $id;
                     $this->Sds_model->updateSDS($record);
+
+//                    $url = $this->config->item('sds_url') . $filename;
+//                    $client = new Guzzle\Http\Client();
+//                    $client->setDefaultOption('auth', array(
+//                        $this->config->item('foldername'), $this->config->item('password')
+//                    ));
+//                    $request = $client->put($url);
+//                    $request->setBody(fopen($this->upload->data('full_path'), 'r'));
+//                    //echo $request;
+//                    $res = $request->send();
+//
+//                    $link = $this->config->item('sds_download_url') . $this->config->item('foldername') . '/download?path=%2F&files=' . $filename;
+//                    $record['link'] = $link;
+//
+//                    $this->Sds_model->updateSDS($record);
 
                     $_SESSION['edit_message'] = 'SDS Successfully Updated';
                     $data = array('dataSet'=>$record);

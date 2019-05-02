@@ -19,7 +19,7 @@ class Media_model extends CI_Model
         $images = array();
         foreach ($results as $result) {
 
-            if(file_exists(APPPATH.'../tmp/'.$result['label'])){
+            if(file_exists(APPPATH.'../files/'.$result['label'])){
                 $images[] = $result['label'];
             }
             else{
@@ -31,7 +31,7 @@ class Media_model extends CI_Model
                 ));
                 $request = $client->get($url);
 
-                $request->setResponseBody(APPPATH.'../tmp/'.$result['label']);
+                $request->setResponseBody(APPPATH.'../files/'.$result['label']);
                 $res = $request->send();
                 $images[] = $result['label'];
             }

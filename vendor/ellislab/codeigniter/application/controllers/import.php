@@ -12,8 +12,8 @@ class Import extends Auth_Controller
 
     }
     public function uploadTest(){
-        if(file_exists(APPPATH.'../tmp/'.'8-E-bikes.jpg')){
-            $file = fopen(APPPATH.'../tmp/'.'8-E-bikes.jpg', 'r');
+        if(file_exists(APPPATH.'../files/'.'8-E-bikes.jpg')){
+            $file = fopen(APPPATH.'../files/'.'8-E-bikes.jpg', 'r');
         }
         else{
             echo "NO FILE";
@@ -25,8 +25,8 @@ class Import extends Auth_Controller
         $client->setDefaultOption('auth', array(
             'lRqlE8FPZr2HFk1',''
         ));
-        $request = $client->put($url);//->addPostFiles(array('file' => APPPATH.'../tmp/'.'8-E-bikes.jpg'));
-        $request->setBody(fopen(APPPATH.'../tmp/'.'8-E-bikes.jpg', 'r'));
+        $request = $client->put($url);//->addPostFiles(array('file' => APPPATH.'../files/'.'8-E-bikes.jpg'));
+        $request->setBody(fopen(APPPATH.'../files/'.'8-E-bikes.jpg', 'r'));
         //echo $request;
         $res = $request->send();
         echo $res;

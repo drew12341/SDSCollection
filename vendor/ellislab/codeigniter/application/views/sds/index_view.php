@@ -25,7 +25,10 @@
     <tbody>
 
 
-    <?php foreach($sds as $i):?>
+    <?php foreach($sds as $i):
+
+        $link = base_url().'files/';
+        ?>
         <tr>
             <td >
                 <?php if($this->ion_auth->logged_in() && ($this->ion_auth->user()->row()->id == $i['uploader'] || $this->ion_auth->is_admin())): ?>
@@ -41,7 +44,14 @@
                         href="<?php echo site_url('Sds').'/delete_sds/'.$i['sds_id']?>">Delete</a>
                 <?php endif; ?>
             </td>
-            <td><a href="<?=$i['link']?>" target = "_blank"><?=$i['substance_name']?></a></td>
+            <td>
+                <?php if($i['filename'] == '' || !file_exists(APPPATH."../files/".$i['filename'])) :?>
+                    <?=$i['substance_name']?>
+               <?php else : ?>
+                    <a href="<?php echo base_url(); ?>Sds/get_file/<?=$i['sds_id']?>" ><?=$i['substance_name']?></a>
+
+                <?php endif; ?>
+                </td>
 
 
 <!--

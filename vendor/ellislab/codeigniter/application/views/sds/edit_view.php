@@ -69,8 +69,8 @@
                 ),
                 array(
                     'id' => 'link',
-                    'label'=>'Link to SDS',
-                    'value'=>$dataSet['link'],
+                    'label'=>'Stored SDS Filename',
+                    'value'=>$dataSet['filename'],
                     'readonly'=>'true',
 //                    'input_addons' => array(
 //                        'post' => '<input name="userfile" id="userfile" label="Attach SDS (PDF)" class="form-control" value="" type="file">'

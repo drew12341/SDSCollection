@@ -13,7 +13,7 @@
             <div>
 
                 <table style="margin: 0 auto; width:80%" class=MsoTableGrid border=1 cellspacing=0 cellpadding=2 style='border-collapse:collapse;border:none'>
-                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><a href="<?=$record['link']?>"><?=$record['substance_name']?></a></mark>&nbsp</td></tr>
+                    <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><a href="<?=base_url('Sds/editSDS/').$record['id']?>"><?=$record['substance_name']?></a></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS No.:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Vendor:</td>    <td class="text-left">&nbsp<mark><?=$record['vendor']?></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Expiry:</td>    <td class="text-left">&nbsp<mark><?=date("d/m/Y", strtotime($record['expiry']))?></mark>&nbsp</td></tr>
