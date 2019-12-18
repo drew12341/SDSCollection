@@ -150,11 +150,12 @@ class User extends CI_Controller  {
         $parts = explode('@',$str);
 
         if(isset($parts[1]) && $parts[1] == 'uts.edu.au') return true;
+		if(isset($parts[1]) && $parts[1] == 'student.uts.edu.au') return true;
 
         //if (stristr($str,'@uts.edu.au') !== false) return true;
 
 
-        $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au suffix');
+        $this->form_validation->set_message('email_check', 'Email must have a @uts.edu.au or @student.uts.edu.au suffix');
         return FALSE;
     }
 
@@ -240,6 +241,7 @@ class User extends CI_Controller  {
         else
         {
             $remember = (bool) $this->input->post('remember');
+		//$remember = true;
             if ($this->ion_auth->login(strtolower($this->input->post('email')), $this->input->post('password'), $remember))
             {
                 redirect('sds');
