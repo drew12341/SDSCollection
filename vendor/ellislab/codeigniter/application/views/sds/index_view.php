@@ -11,6 +11,7 @@
 
     <tr>
         <th >&nbsp;</th>
+        <th>ID</th>
         <th>Substance Name</th>
 
 
@@ -44,6 +45,7 @@
                         href="<?php echo site_url('Sds').'/delete_sds/'.$i['sds_id']?>">Delete</a>
                 <?php endif; ?>
             </td>
+            <td><?= $i['sds_id'] ?></td>
             <td>
                 <?php if($i['filename'] == '' || !file_exists(APPPATH."../files/".$i['filename'])) :?>
                     <?=$i['substance_name']?>
@@ -79,6 +81,7 @@
     <tfoot>
     <tr>
         <th >&nbsp;</th>
+        <th>ID</th>
         <th>Substance Name</th>
 
 
@@ -97,11 +100,11 @@ $(document).ready(function() {
 $('.table').DataTable({
 "order": [[4, "desc"]],
     columnDefs: [{
-        targets: [4, 5  ],
+        targets: [5,6  ],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),
     }],
     "createdRow": function( row, data, dataIndex ) {
-        if ( data[7] == 1)  {
+        if ( data[8] == 1)  {
             $(row).addClass( 'expired' );
         }
 
