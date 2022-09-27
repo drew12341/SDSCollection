@@ -4,8 +4,6 @@
 <a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a>
 <?php endif; ?>
 
-<h4><p style="text-align:center">UTS Safety Data Sheet (SDS) Collection</p></h4>
-
 <table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
 
@@ -17,7 +15,7 @@
 
         <th>CAS</th>
         <th>Vendor</th>
-        <th>Published</th>
+        <th>SDS Publish Date</th>
         <th>Expiry</th>
         <th>Uploader</th>
         <th style="display:none"></th>

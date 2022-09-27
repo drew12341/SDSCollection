@@ -1,6 +1,16 @@
 <!-- Navigation -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" >
-      <a class="navbar-brand page-scroll" style="padding:0 10px 0 0 !important" href="<?php echo site_url(); ?>"><img src="<?php echo base_url(); ?>assets/images/UTS-logo.png" height="47px"></a>
+      <a class="navbar-brand page-scroll" style="padding:0 3px 0 0 !important" href="<?php echo site_url(); ?>">
+	  
+	  <div style="float:left; padding-right:15px">
+	  <img src="<?php echo base_url(); ?>assets/images/uts-logo-University-of-Technology-Sydney.png" height="47px">
+	  </div>
+		 
+	  <div style="height:47px;color:white;width:321px;position:relative">
+      <span style="bottom:0;right:0;padding-bottom:10px;padding-right:5px">UTS Safety Data Sheet (SDS) Collection</span>
+      </div>
+	  
+	  </a>
 
       <div class="container">
           <div class="navbar-header page-scroll">
@@ -20,6 +30,8 @@
                       <li>
                           <a id="defaulttab" class="page-scroll" href="<?php echo site_url('Sds'); ?>">SDS Collection</a>
                       </li>
+
+
 
 
                   <?php if($this->ion_auth->logged_in()): ?>
@@ -44,8 +56,9 @@
                               -->
                           <?php endif; ?>
                   <?php endif; ?>
-                  </ul>
 
+
+                  </ul>
                     <ul class="nav navbar-nav" style="float:right">
                         <?php  if($this->ion_auth->logged_in()): ?>
                       <li><a class="page-scroll">Welcome, <?= $this->ion_auth->user()->row()->first_name;?>
@@ -63,6 +76,10 @@
                       </li>
 
                         <?php endif; ?>
+						
+					<li>
+					<a class="page-scroll" target="_blank" href="https://safetyapp.uts.edu.au/sdscollection/assets/SDSCollectionInstructions.pdf"> Instructions</a>
+					</li>
               </ul>
 
           </div>
@@ -70,6 +87,7 @@
       </div>
       <!-- /.container -->
   </nav>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var active_link = $('.navbar li a[href~="<?=base_url($this->uri->segment(1))?>"]');
