@@ -96,7 +96,7 @@
 $(document).ready(function() {
 
 $('.table').DataTable({
-"order": [[4, "desc"]],
+"order": [[1, "desc"]],
     columnDefs: [{
         targets: [5,6  ],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),
