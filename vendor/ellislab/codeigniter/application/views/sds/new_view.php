@@ -4,6 +4,13 @@
 <div class="row">
     <div class="col-lg-12">
         <h1>Add New SDS</h1>
+
+					<div align = "left">
+					Please check that an in-date SDS from the supplier for this substance does not already exist. There only needs to be one current SDS from each supplier for a substance.</BR>
+					&nbsp;</BR>
+					</div>
+
+
         <?php if (isset($_SESSION['aa_message'])) : ?>
             <div class="alert alert-success"><?= $_SESSION['aa_message']; ?>
             </div>
@@ -69,9 +76,9 @@
 					<div align = "left">
 					<strong>NOTE:</strong></BR>
 					- Only use SDS from the vendor/supplier, not a generic SDS.</BR>
-					- <i>Substance Name</i> is the main product identifier on the SDS.</BR>
-					- <i>CAS-No.</i> is found in section 3 of the SDS. &nbsp;If a <i>CAS-No.</i> does not exist, just enter "000-00-0". </BR>
-					- <i>Published</i> is Date Last Updated (aka Creation Date or Revision Date) usually found in header or footer of SDS.
+					- <i>"Substance Name"</i> is the main product identifier on the SDS.</BR>
+					- <i>"CAS-No."</i> is found in section 3 of the SDS. &nbsp;If a <i>CAS-No.</i> does not exist, just enter "000-00-0". </BR>
+					- <i>"Published"</i> is Date Last Updated (aka Creation Date or Revision Date) usually found in header or footer of SDS.
 					</div>
 
         </div>
