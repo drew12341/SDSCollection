@@ -1022,6 +1022,29 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
+    public function login_by_id($id){
+
+        $query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
+            ->where('id', $id)
+            ->limit(1)
+            ->order_by('id', 'desc')
+            ->get($this->tables['users']);
+
+        $user = $query->row();
+
+        //$user = $this->getUser($id);
+
+        $identity = $user->{$this->identity_column};
+        $this->set_session($user);
+
+        $this->update_last_login($user->id);
+
+        $this->clear_login_attempts($identity);
+
+        $this->trigger_events(array('post_login', 'post_login_successful'));
+        $this->set_message('login_successful');
+    }
+
 	/**
 	 * is_max_login_attempts_exceeded
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
@@ -2238,6 +2261,16 @@ class Ion_auth_model extends CI_Model
     /* added by AA.  Function to return single user. */
     public function getUser($userid){
         $this->db->where('users.id', $userid);
+        $this->db->join('users_groups', 'users.id = users_groups.user_id');
+        $this->db->join('groups', 'groups.id = users_groups.group_id');
+        $query = $this->db->get('users');
+        $results = $query->result_array();
+        return $results[0];
+    }
+
+    /* added by AA for SSO.  Function to return single user by identity key. */
+    public function getUserByIdentity($identity_key){
+        $this->db->where('users.username', $identity_key);
         $this->db->join('users_groups', 'users.id = users_groups.user_id');
         $this->db->join('groups', 'groups.id = users_groups.group_id');
         $query = $this->db->get('users');
