@@ -16,7 +16,6 @@ class Sso extends CI_Controller
 
     public function index()
     {
-
         require_once(__DIR__."/../../../../phpSAMLsampleApp/lib/bootstrap.php");
 
         if (!PHPSAMLProcessor::self()->isAuthenticated()) {
@@ -28,6 +27,8 @@ class Sso extends CI_Controller
             echo $userID;
 
             $user = $this->ion_auth->getUserByIdentity($userID);
+
+
             if(!$user){
                 //TODO remove this for live
                 //$userID = 'test.user@uts.edu.au';
@@ -57,13 +58,13 @@ class Sso extends CI_Controller
                 }
                 else{
                     echo 'errors:\n<br>';
-                  
+
                 }
                 $user = $this->ion_auth->getUserByIdentity($userID);
-
+                
             }
             //echo json_encode($user);
-            $loggd_in = $this->ion_auth->login_by_id($user['id']);
+            $loggd_in = $this->ion_auth->login_by_id($user['user_id']);
 
             return redirect('/');
         }

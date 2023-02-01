@@ -6,6 +6,7 @@ class User extends CI_Controller  {
     function __construct()
     {
         parent::__construct();
+        $this->config->load('SDS_config');
         $this->output->set_template('default');
     }
 
