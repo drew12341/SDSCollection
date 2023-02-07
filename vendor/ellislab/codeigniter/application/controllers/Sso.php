@@ -61,7 +61,7 @@ class Sso extends CI_Controller
 
                 }
                 $user = $this->ion_auth->getUserByIdentity($userID);
-                
+
             }
             //echo json_encode($user);
             $loggd_in = $this->ion_auth->login_by_id($user['user_id']);
