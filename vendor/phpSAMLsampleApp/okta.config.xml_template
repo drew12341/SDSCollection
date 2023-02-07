@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<configuration>
+<okta>
+  <authentication>
+    <authenticationurl>{Identity Provider Single Sign-On URL}</authenticationurl>
+    <issuer>{Identity Provider Issuer}</issuer>
+    <logoutUrl>https://myorg.okta.com</logoutUrl>
+    <certificate>
+{X.509 Certificate}
+</certificate>
+  </authentication>
+</okta>
+</configuration>
