@@ -81,8 +81,6 @@
         <th >&nbsp;</th>
         <th>ID</th>
         <th>Substance Name</th>
-
-
         <th>CAS</th>
         <th>Vendor</th>
         <th>Published</th>
@@ -100,7 +98,12 @@ $('.table').DataTable({
     columnDefs: [{
         targets: [5,6  ],
         render: $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD/MM/YYYY'),
-    }],
+    },
+        {
+            targets: [0],
+            bSortable: false
+        }
+    ],
     "createdRow": function( row, data, dataIndex ) {
         if ( data[8] == 1)  {
             $(row).addClass( 'expired' );

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sds extends CI_Controller
+class Sds extends Auth_Controller
 {
     function __construct()
     {
