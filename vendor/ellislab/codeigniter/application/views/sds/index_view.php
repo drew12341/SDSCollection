@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <?php if($this->ion_auth->logged_in()): ?>
-<a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary" style="float:left">Upload a SDS</a>
+<a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary hidemobile" style="float:left">Upload a SDS</a>
 <?php endif; ?>
 
-<table class="dashboard table table-striped outstanding table-bordered table-hover" style="border: 2px solid #ddd" cellspacing="0" width="100%">
+<table class="dashboard table table-striped outstanding table-bordered table-hover wrap" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
 
     <tr>
@@ -30,18 +30,9 @@
         ?>
         <tr>
             <td >
-                <?php if($this->ion_auth->logged_in() && ($this->ion_auth->user()->row()->id == $i['uploader'] || $this->ion_auth->is_admin())): ?>
-                    <a class="btn btn-primary" href="<?php echo site_url('Sds').'/editSDS/'.$i['sds_id'];?>">Edit</a>
-                    <a
-                        class="btn btn-primary"
-                        data-toggle="confirmation"
-                        data-btn-ok-label="Delete" data-btn-ok-icon="glyphicon glyphicon-share-alt"
-                        data-btn-ok-class="btn-primary"
-                        data-btn-cancel-label="Cancel" data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
-                        data-btn-cancel-class="btn-danger"
-                        data-title="Warning" data-content="This will delete this SDS"
-                        href="<?php echo site_url('Sds').'/delete_sds/'.$i['sds_id']?>">Delete</a>
-                <?php endif; ?>
+                <input type="hidden" class="data" id="data<?=$i['sds_id']?>" value='<?=json_encode($i,JSON_HEX_APOS | JSON_PRETTY_PRINT);?>'/>
+                <a id="more_<?=$i['sds_id']?>" class="btn btn-primary moretoggle tablebutton">More</a>
+
             </td>
             <td><?= $i['sds_id'] ?></td>
             <td>
@@ -102,6 +93,10 @@ $('.table').DataTable({
         {
             targets: [0],
             bSortable: false
+        },
+        {
+            targets:[5,7],
+            visible:false
         }
     ],
     "createdRow": function( row, data, dataIndex ) {
@@ -110,8 +105,8 @@ $('.table').DataTable({
         }
 
     },
-    "lengthMenu": [50, 100, 150, 200]
-
+    "lengthMenu": [50, 100, 150, 200],
+    dom: 'Bfrtlip'
 });
 
 });
@@ -120,4 +115,85 @@ $('[data-toggle=confirmation]').confirmation({
     rootSelector: '[data-toggle=confirmation]',
     // other options
 });
+// Add event listener for opening and closing details
+$('tbody').on('click', 'td a.moretoggle', function () {
+    var tr = $(this).closest('tr');
+    var table = $(this).closest('.table').DataTable();
+    var row = table.row( tr );
+
+    var d1 = jQuery.parseJSON($(this).closest('tr').find('.data').val());
+
+    if ( row.child.isShown() ) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+        $(this).text("More");
+    }
+    else {
+        // Open this row
+        row.child( format(d1) ).show("slow");
+        tr.addClass('shown');
+        $(this).text("Hide");
+        $('[data-toggle=confirmation]').confirmation({
+            rootSelector: '[data-toggle=confirmation]',
+            // other options
+        });
+    }
+} );
+
+function format ( d ) {
+    let logged_in = <?=$this->ion_auth->logged_in();?>;
+    console.log(logged_in);
+    let edit_sds_url = '<?= site_url('Sds');?>'+'/editSDS/'+d.sds_id;
+    let delete_sds_url = '<?= site_url('Sds');?>'+'/delete_sds/'+d.sds_id;
+    var logged_in_user = 0;
+    var is_admin = false;
+    if(logged_in){
+        console.log('logged in');
+        logged_in_user = <?=$this->ion_auth->user()->row()->id;?>;
+        is_admin = '<?=$this->ion_auth->is_admin();?>';
+    }
+    console.log(logged_in_user);
+    console.log(is_admin);
+
+    let display_buttons = (logged_in && logged_in_user == d.uploader || is_admin);
+    console.log(display_buttons);
+
+    // `d` is the original data object for the row
+    var returnstr =  '<table class="table table-bordered table-detail" style="padding-left:50px;white-space: pre-line;">'+
+        '<tr>'+
+        '<td class="text-right strong" style="width:50%">SDS Number:</td>'+
+        '<td class="text-left">'+d.sds_id+'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td class="text-right strong">SDS Publish Date:</td>'+
+        '<td class="text-left">'+(d.published != null ? moment( d.published).format('DD/MM/YYYY') : 'Not Known')+'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td class="text-right strong">Uploader:</td>'+
+        '<td class="text-left">'+ d.first_name+' '+d.last_name+'</td>'+
+        '</tr>';
+
+       if (display_buttons){
+           returnstr = returnstr+
+            '<tr>' +
+            '<td class="text-right strong">' +
+            '<a class="btn btn-primary" href="' + edit_sds_url + '">Edit</a>' +
+            '</td>' +
+            '<td class="text-left">' +
+            '<a class="btn btn-primary" data-toggle="confirmation"' +
+            'data-btn-ok-label="Delete" data-btn-ok-icon="glyphicon glyphicon-share-alt"' +
+            'data-btn-ok-class="btn-primary" data-btn-cancel-label="Cancel" ' +
+            'data-btn-cancel-icon="glyphicon glyphicon-ban-circle" data-btn-cancel-class="btn-danger"' +
+            'data-title="Warning" data-content="This will delete this SDS"' +
+            'href="' + delete_sds_url + '">Delete</a>' +
+
+            '</td>' +
+            '</tr>';
+        }
+        returnstr = returnstr+'</table>';
+       return returnstr;
+
+}
+
 </script>

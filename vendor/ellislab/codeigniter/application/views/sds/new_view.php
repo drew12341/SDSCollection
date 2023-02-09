@@ -86,7 +86,7 @@
             class: "btn btn-primary",
             style: 'margin-left:10px',
             value: "Cancel",
-            onclick: "history.back()"
+            onclick: "window.location.replace('/')"
         });
 
         $(".btn").parent().append(r);

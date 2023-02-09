@@ -94,5 +94,18 @@
         ?>
     </div>
 </div>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        var r = $('<input/>').attr({
+            type: "button",
+            id: "field",
+            class: "btn btn-primary",
+            style: 'margin-left:10px',
+            value: "Cancel",
+            onclick: "window.location.replace('/')"
+        });
 
+        $(".btn").parent().append(r);
+    });
+</script>
 
