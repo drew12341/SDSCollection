@@ -40,9 +40,14 @@ class Migration_Ion_auth extends CI_Migration {
                 "description" => "General User"
             );
 
-
+        $data3 =    array(
+            "id" => 3,
+            "name" => "edit",
+            "description" => "Edit and Upload"
+        );
         $this->db->insert('groups', $data1);
         $this->db->insert('groups', $data2);
+        $this->db->insert('groups', $data3);
 
         // Drop table 'users' if it exists
         $this->dbforge->drop_table('users', TRUE);

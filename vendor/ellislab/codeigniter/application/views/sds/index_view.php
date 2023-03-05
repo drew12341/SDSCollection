@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-<?php if($this->ion_auth->logged_in()): ?>
+<?php if($this->ion_auth->logged_in() && ( $this->ion_auth->is_admin()||$this->ion_auth->in_group("edit",$this->ion_auth->user()->row()->id))): ?>
 <a href="<?php echo site_url('Sds').'/newSds/'?>" class="btn btn-primary hidemobile" style="float:left">Upload a SDS</a>
 <?php endif; ?>
 
@@ -148,15 +148,17 @@ function format ( d ) {
     let delete_sds_url = '<?= site_url('Sds');?>'+'/delete_sds/'+d.sds_id;
     var logged_in_user = 0;
     var is_admin = false;
+    var is_edit = false;
     if(logged_in){
         console.log('logged in');
         logged_in_user = <?=$this->ion_auth->user()->row()->id;?>;
         is_admin = '<?=$this->ion_auth->is_admin();?>';
+        is_edit = '<?=$this->ion_auth->in_group("edit",$this->ion_auth->user()->row()->id);?>';
     }
     console.log(logged_in_user);
     console.log(is_admin);
 
-    let display_buttons = (logged_in && logged_in_user == d.uploader || is_admin);
+    let display_buttons = (logged_in && logged_in_user == d.uploader || is_admin || is_edit);
     console.log(display_buttons);
 
     // `d` is the original data object for the row
