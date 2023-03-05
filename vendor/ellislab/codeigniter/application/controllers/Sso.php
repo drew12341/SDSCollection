@@ -72,7 +72,7 @@ class Sso extends CI_Controller
     }
 
     public function bypasssso(){
-        $loggd_in = $this->ion_auth->login_by_id(24);
+        $loggd_in = $this->ion_auth->login_by_id(1);
         return redirect('/');
     }
     //--------------------------------------------------------------------
