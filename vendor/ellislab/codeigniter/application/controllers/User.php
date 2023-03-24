@@ -125,17 +125,16 @@ class User extends CI_Controller  {
             $ids = array_keys($groups);
 
             $edit = $this->input->post('edit');
-            //don't change if this is admin user
-            if(!$this->ion_auth->is_admin()) {
-                if (isset($edit)) {
-                    $this->ion_auth->remove_from_group(false, $id);
-                    $this->ion_auth->add_to_group(3, $id);
-                } //else remove from group
-                else {
-                    $this->ion_auth->remove_from_group(false, $id);
-                    $this->ion_auth->add_to_group(2, $id);
-                }
+           
+            if (isset($edit)) {
+                $this->ion_auth->remove_from_group(false, $id);
+                $this->ion_auth->add_to_group(3, $id);
+            } //else remove from group
+            else {
+                $this->ion_auth->remove_from_group(false, $id);
+                $this->ion_auth->add_to_group(2, $id);
             }
+
 
 
             $data = array('dataSet'=>$this->ion_auth->getUser($id),
