@@ -1241,7 +1241,7 @@ class CI_Form_validation {
 	public function valid_email($str)
 	{
         //see if this corrects the 'INTL_IDNA_VARIANT_2003' issue
-        return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $address)) ? FALSE : TRUE;
+        return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
 
 //		if (function_exists('idn_to_ascii') && $atpos = strpos($str, '@'))
 //		{
