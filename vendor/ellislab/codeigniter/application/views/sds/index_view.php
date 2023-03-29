@@ -6,13 +6,10 @@
 
 <table class="dashboard table table-striped outstanding table-bordered table-hover wrap" style="border: 2px solid #ddd" cellspacing="0" width="100%">
     <thead>
-
     <tr>
         <th >&nbsp;</th>
         <th>ID</th>
         <th>Substance Name</th>
-
-
         <th>CAS</th>
         <th>Vendor</th>
         <th>SDS Publish Date</th>
@@ -22,17 +19,12 @@
     </tr>
     </thead>
     <tbody>
-
-
     <?php foreach($sds as $i):
-
         $link = base_url().'files/';
         ?>
         <tr>
             <td >
-                <input type="hidden" class="data" id="data<?=$i['sds_id']?>" value='<?=json_encode($i,JSON_HEX_APOS | JSON_PRETTY_PRINT);?>'/>
                 <a id="more_<?=$i['sds_id']?>" class="btn btn-primary moretoggle tablebutton">More</a>
-
             </td>
             <td><?= $i['sds_id'] ?></td>
             <td>
@@ -40,31 +32,19 @@
                     <?=$i['substance_name']?>
                <?php else : ?>
                     <a href="<?php echo base_url(); ?>Sds/get_file/<?=$i['sds_id']?>" ><?=$i['substance_name']?></a>
-
                 <?php endif; ?>
                 </td>
-
-
-<!--
-            <td><?=$i['cas']?></td>
--->
-
 		<?php if ($i['cas'] == "000-00-0" or $i['cas'] == "00-00-0") : ?>
 			<td>No CAS</td>
 		<?php else : ?>
 			<td><?=$i['cas']?></td>
 		<?php endif; ?>
-
-
-
             <td><?=$i['vendor']?></td>
             <td ><?=date("Y-m-d", strtotime($i['published']))?></td>
             <td ><?=date("Y-m-d", strtotime($i['expiry']))?></td>
-
             <td><?=$i['first_name']?>&nbsp;<?=$i['last_name']?> </td>
             <td style="display:none"><?=$i['expired']?></td>
           </tr>
-
     <?php endforeach; ?>
     </tbody>
     <tfoot>
@@ -150,16 +130,11 @@ function format ( d ) {
     var is_admin = false;
     var is_edit = false;
     if(logged_in){
-        console.log('logged in');
         logged_in_user = <?=$this->ion_auth->user()->row()->id;?>;
         is_admin = '<?=$this->ion_auth->is_admin();?>';
         is_edit = '<?=$this->ion_auth->in_group("edit",$this->ion_auth->user()->row()->id);?>';
     }
-    console.log(logged_in_user);
-    console.log(is_admin);
-
     let display_buttons = (logged_in && logged_in_user == d.uploader || is_admin || is_edit);
-    console.log(display_buttons);
 
     // `d` is the original data object for the row
     var returnstr =  '<table class="table table-bordered table-detail" style="padding-left:50px;white-space: pre-line;">'+

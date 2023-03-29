@@ -12,9 +12,11 @@ class Sds extends Auth_Controller
     }
 
     function index(){
+        $this->output->cache(15);
         $data = array('sds'=>$this->Sds_model->getSDS());
         $this->load->view('sds/index_view', $data);
     }
+
 
     public function cas_check($str)
     {
