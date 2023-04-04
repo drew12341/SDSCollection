@@ -125,7 +125,7 @@ class User extends CI_Controller  {
             $ids = array_keys($groups);
 
             $edit = $this->input->post('edit');
-           
+
             if (isset($edit)) {
                 $this->ion_auth->remove_from_group(false, $id);
                 $this->ion_auth->add_to_group(3, $id);

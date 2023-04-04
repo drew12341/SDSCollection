@@ -12,7 +12,15 @@ class Sds extends Auth_Controller
     }
 
     function index(){
-        $this->output->cache(15);
+        //$this->output->cache(15);
+        $this->load->library('user_agent');
+        if ($this->agent->is_mobile()){
+            //$this->output->cache(15);
+            $this->output->set_template('mobile_default');
+            $data = array('sds'=>$this->Sds_model->getSDS());
+            $this->load->view('sds/mobile_index_view', $data);
+            return;
+        }
         $data = array('sds'=>$this->Sds_model->getSDS());
         $this->load->view('sds/index_view', $data);
     }

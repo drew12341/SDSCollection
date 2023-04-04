@@ -18,9 +18,9 @@ class Sds_model extends CI_Model
         $before = date('Y-m-d', $expire_time);
 
         $this->db->join('users', 'users.id=sds.uploader');
-        $this->db->select('users.username, users.email, users.first_name, users.last_name, sds.*, users.id as user_id, sds.id as sds_id');
+        $this->db->select('users.username, users.email, users.first_name, users.last_name, sds.substance_name, sds.uploader,sds.vendor,sds.published, sds.expiry, sds.expiry, sds.cas, sds.filename, users.id as user_id, sds.id as sds_id');
         $this->db->where('published <',$before);
-        $this->db->order_by('id');
+        $this->db->order_by('sds.id', "desc");
         $query = $this->db->get('sds');
 
         $results = $query->result_array();

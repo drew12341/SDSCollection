@@ -24,6 +24,7 @@
         ?>
         <tr>
             <td >
+                <input type="hidden" class="data" id="data<?=$i['sds_id']?>" value='<?=json_encode($i,JSON_HEX_APOS | JSON_PRETTY_PRINT);?>'/>
                 <a id="more_<?=$i['sds_id']?>" class="btn btn-primary moretoggle tablebutton">More</a>
             </td>
             <td><?= $i['sds_id'] ?></td>

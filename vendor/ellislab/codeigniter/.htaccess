@@ -2,11 +2,13 @@ DirectoryIndex index.php
 RewriteEngine on
 <IfModule mod_rewrite.c>
 	RewriteCond %{REQUEST_FILENAME} !-f 
-	RewriteCond %{REQUEST_FILENAME} !-d 
-	
+	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.php?/$1 [L]
-
-
 	RewriteCond $1 !^(index\.php|resources|files|robots\.txt)
-	#RewriteRule ^(.*)$ /atlas_reports/index.php/$1 [L]
 </IfModule>
+
+<FilesMatch "\.(css|js)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "max-age=172800, public, must-revalidate"
+    </IfModule>
+</FilesMatch>
