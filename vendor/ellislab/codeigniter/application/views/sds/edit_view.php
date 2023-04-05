@@ -102,7 +102,7 @@
             class: "btn btn-primary",
             style: 'margin-left:10px',
             value: "Cancel",
-            onclick: "window.location.replace('/')"
+            onclick: "window.location.replace('<?php echo base_url();?>')"
         });
 
         $(".btn").parent().append(r);
