@@ -1,0 +1,352 @@
+body {
+    /*background: #B6B7BC;*/
+    background: #D2D9D9;
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+.doc {
+    font-family:Verdana;
+    font-size:16px;
+    line-height:1.4em;
+}
+
+.doc a, h2, .lblue {
+    color: #4F81BD;
+    text-decoration:none;
+}
+
+.doc h1, .dblue, .doc a:hover {
+    color: #17365D;
+}
+
+.doc h1 {
+    border-bottom: 1px solid #17365D;
+    font-size:20px;
+}
+
+.doc h2 {
+    border-bottom: 1px solid #4F81BD;
+    font-size:18px;
+    padding-top:21px;
+}
+
+.doc h3 {
+    font-size:16px;
+}
+
+.doc p {
+    margin:0;
+    padding:2px;
+}
+        
+pre {
+    margin: 8px;
+    padding: 1em 10px;
+    display: block;
+    font-family: Monospace;
+    white-space: pre;                
+    border: 1px solid #999;
+}            
+
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
+    margin-top: 0px;
+}
+
+.page {
+    width: 960px;
+    background-color: #fff;
+    margin: 20px auto 0px auto;
+    border: 1px solid #496077;
+    
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+}
+
+.header {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    /*background: #4b6c9e;*/
+    background: #5B8AA4;
+    
+    width: 100%;
+    
+    -moz-border-radius-topleft: 15px;
+    border-top-left-radius: 15px;
+    -webkit-border-top-left-radius: 15px;
+    
+    -moz-border-radius-topright: 15px;
+    border-top-right-radius: 15px;
+    -webkit-border-top-right-radius: 15px;
+}
+
+.header h1 {
+    font-weight: 700;
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
+    color: #f9f9f9;
+    border: none;
+    line-height: 2em;
+    font-size: 2em;
+}
+
+.main
+{
+    padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
+    min-height: 700px;
+}
+
+.leftCol
+{
+    padding: 6px 0px;
+    margin: 12px 8px 8px 8px;
+    width: 200px;
+    min-height: 200px;
+}
+
+.footer {
+    color: #4e5766;
+    padding: 8px 0px 0px 0px;
+    margin: 0px auto;
+    text-align: center;
+    line-height: normal;
+}
+
+div.hideSkiplink, div.section {
+    background-color:#3a4f63;
+    width:100%;
+}
+
+div.section, div.section_contents {
+    text-align:left;
+    padding:4px;
+    margin:10px 0;
+    
+    width: 950px;
+}
+
+div.section_contents .label {
+    float:left;
+    width:200px;
+    font-weight:bold;
+}
+
+div.section_contents .row {
+    margin:10px 0;
+    display: block;
+}
+
+div.section_contents .value {
+    margin-left:202px;
+}
+
+div.section {
+    -moz-border-radius: 4px 4px 0 0;
+
+    border-top-left-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    
+    border-top-right-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+        
+    color:#fff;
+}
+
+div.section_contents {
+    margin:0;
+}
+
+div.hideSkiplink>a
+{
+    display: none;
+}
+
+div.menu, table.menu
+{
+    padding: 4px 0px 4px 8px;
+}
+
+div.menu ul
+{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+
+div.menu ul li a, div.menu ul li a:visited, table.menu td a, table.menu td a:visited
+{
+    background-color: #465c71;
+    border: 1px #4e667d solid;
+    color: #dde4ec;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+div.menu ul li a:hover, table.menu td a:hover
+{
+    background-color: #bfcbd6;
+    color: #465c71;
+    text-decoration: none;
+}
+
+div.menu ul li a:active, table.menu td a:active
+{
+    background-color: #465c71;
+    color: #cfdbe6;
+    text-decoration: none;
+}
+
+/* FORM ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+fieldset p 
+{
+    margin: 2px 12px 10px 10px;
+}
+
+fieldset.login label, fieldset.register label, fieldset.changePassword label
+{
+    display: block;
+}
+
+fieldset label.inline 
+{
+    display: inline;
+}
+
+legend 
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+input.textEntry 
+{
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+input.passwordEntry 
+{
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+div.accountInfo
+{
+    width: 42%;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+
+.clear
+{
+    clear: both;
+}
+
+.title
+{
+    display: block;
+    float: left;
+    text-align: left;
+    width: auto;
+}
+
+.loginDisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    padding: 10px;
+    color: White;
+}
+
+.loginDisplay a:link
+{
+    color: white;
+}
+
+.loginDisplay a:visited
+{
+    color: white;
+}
+
+.loginDisplay a:hover
+{
+    color: white;
+}
+
+.failureNotification
+{
+    font-size: 1.2em;
+    color: Red;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.submitButton
+{
+    text-align: right;
+    padding-right: 10px;
+}
+
+.menu_links {
+    padding: 6px 10px;
+    color:#808080;
+}
+
+.menu_links a {
+    color: #fff;
+    font-size: 1.2em;
+    text-decoration:none;
+}
+
+.menu_links a:hover {
+    text-decoration:underline;
+}
+
+.red {
+    color: #800000;
+}

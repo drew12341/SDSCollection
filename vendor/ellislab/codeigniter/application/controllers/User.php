@@ -6,6 +6,7 @@ class User extends CI_Controller  {
     function __construct()
     {
         parent::__construct();
+        $this->config->load('SDS_config');
         $this->output->set_template('default');
     }
 
@@ -106,9 +107,10 @@ class User extends CI_Controller  {
             $dataSet['last_name'] = $this->input->post('last_name');
 
             $dataSet['email'] = strtolower($this->input->post('email'));
-
-
             $this->load->library('ion_auth');
+
+
+
             if($this->ion_auth->update($id,$dataSet))
             {
                 $_SESSION['edit_message'] = 'User has been updated.';
@@ -118,13 +120,21 @@ class User extends CI_Controller  {
                 $_SESSION['edit_message'] = $this->ion_auth->errors();
             }
             //fix up groups
+            //Set group if checkbox is checked
             $groups = $this->ion_auth->listGroups();
+            $ids = array_keys($groups);
 
-            //$ids = array_keys($groups);
+            $edit = $this->input->post('edit');
 
+            if (isset($edit)) {
+                $this->ion_auth->remove_from_group(false, $id);
+                $this->ion_auth->add_to_group(3, $id);
+            } //else remove from group
+            else {
+                $this->ion_auth->remove_from_group(false, $id);
+                $this->ion_auth->add_to_group(2, $id);
+            }
 
-            //$this->ion_auth->remove_from_group(false, $id);
-            //$this->ion_auth->add_to_group($this->input->post('group'), $id);
 
 
             $data = array('dataSet'=>$this->ion_auth->getUser($id),

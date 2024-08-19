@@ -2,7 +2,7 @@
 
     <h3>Users</h3>
 
-    <div style="float:left"><a href="User/register" class="btn btn-primary">Register New User</a></div>
+    <!--<div style="float:left"><a href="User/register" class="btn btn-primary">Register New User</a></div>-->
 <div style="clear:both"></div>
 <br/>
 
@@ -66,7 +66,7 @@
     $(document).ready(function() {
 
         $('.table').DataTable({
-            "order": [[1, "desc"]],
+            "order": [[1, "asc"]],
 
 
         });

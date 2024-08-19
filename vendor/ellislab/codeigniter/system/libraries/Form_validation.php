@@ -1240,12 +1240,15 @@ class CI_Form_validation {
 	 */
 	public function valid_email($str)
 	{
-		if (function_exists('idn_to_ascii') && $atpos = strpos($str, '@'))
-		{
-			$str = substr($str, 0, ++$atpos).idn_to_ascii(substr($str, $atpos));
-		}
+        //see if this corrects the 'INTL_IDNA_VARIANT_2003' issue
+        return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
 
-		return (bool) filter_var($str, FILTER_VALIDATE_EMAIL);
+//		if (function_exists('idn_to_ascii') && $atpos = strpos($str, '@'))
+//		{
+//			$str = substr($str, 0, ++$atpos).idn_to_ascii(substr($str, $atpos));
+//		}
+//
+//		return (bool) filter_var($str, FILTER_VALIDATE_EMAIL);
 	}
 
 	// --------------------------------------------------------------------

@@ -1,15 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-
 <div class="row">
     <div class="col-lg-12">
         <h1>Add New SDS</h1>
-
-					<div align = "left">
-					Please check that an in-date SDS from the supplier for this substance does not already exist. There only needs to be one current SDS from each supplier for a substance.</BR>
-					&nbsp;</BR>
-					</div>
-
+        <div align = "left">
+            Please check that an in-date SDS from the supplier for this substance does not already exist. There only needs to be one current SDS from each supplier for a substance.</BR>
+            &nbsp;</BR>
+        </div>
 
         <?php if (isset($_SESSION['aa_message'])) : ?>
             <div class="alert alert-success"><?= $_SESSION['aa_message']; ?>
@@ -18,7 +15,6 @@
 
         <?php if(isset($record)): ?>
             <div>
-
                 <table style="margin: 0 auto; width:80%" class=MsoTableGrid border=1 cellspacing=0 cellpadding=2 style='border-collapse:collapse;border:none'>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Substance: </td>   <td class="text-left">&nbsp<mark><a href="<?=base_url('Sds/editSDS/').$record['id']?>"><?=$record['substance_name']?></a></mark>&nbsp</td></tr>
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>CAS No.:</td>       <td class="text-left">&nbsp<mark><?=$record['cas']?></mark>&nbsp</td></tr>
@@ -26,9 +22,8 @@
                     <tr><td width=160 valign=top style='border:solid windowtext 1.0pt;padding:2px'>Expiry:</td>    <td class="text-left">&nbsp<mark><?=date("d/m/Y", strtotime($record['expiry']))?></mark>&nbsp</td></tr>
                 </table>
 
-
-            <br/>
-            <a href="<?php echo site_url('Sds').'/newSds/1'?>" class="btn btn-primary" style="float:left">Upload another SDS</a>
+                <br/>
+                <a href="<?php echo site_url('Sds').'/newSds/1'?>" class="btn btn-primary" style="float:left">Upload another SDS</a>
             </div>
         <?php endif; ?>
 
@@ -41,7 +36,6 @@
                     array(
                         'id' => 'substance_name',
                     ),
-
                     array(
                         'id' => 'cas',
                         'label'=>'CAS No.',
@@ -52,11 +46,10 @@
                     ),
                     array(
                         'id' => 'published',
-						'value'=>date("d/m/Y ", time()),
+                        'value'=>date("d/m/Y ", time()),
                         'data-provide'=>'datepicker',
                         'data-date-format'=>"dd/mm/yyyy",
                     ),
-
                     array(
                         'id' => 'userfile',
                         'type' => 'file',
@@ -67,23 +60,38 @@
                         'id' => 'submit',
                         'type' => 'submit',
                         'label' => 'Save'
-                    )
+                    ),
+
                 )
             );
             echo $this->form_builder->close_form();
             ?>
 
-					<div align = "left">
-					<strong>NOTE:</strong></BR>
-					- Only use SDS from the vendor/supplier, not a generic SDS.</BR>
-					- <i>"Substance Name"</i> is the main product identifier on the SDS.</BR>
-					- <i>"CAS-No."</i> is found in section 3 of the SDS. &nbsp;If a <i>CAS-No.</i> does not exist, just enter "000-00-0". </BR>
-					- <i>"Published"</i> is Date Last Updated (aka Creation Date or Revision Date) usually found in header or footer of SDS.
-					</div>
+            <div align = "left">
+                <strong>NOTE:</strong></BR>
+                - Only use SDS from the vendor/supplier, not a generic SDS.</BR>
+                - <i>"Substance Name"</i> is the main product identifier on the SDS.</BR>
+                - <i>"CAS-No."</i> is found in section 3 of the SDS. &nbsp;If a <i>CAS-No.</i> does not exist, just enter "000-00-0". </BR>
+                - <i>"Published"</i> is Date Last Updated (aka Creation Date or Revision Date) usually found in header or footer of SDS.
+            </div>
 
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        var r = $('<input/>').attr({
+            type: "button",
+            id: "field",
+            class: "btn btn-primary",
+            style: 'margin-left:10px',
+            value: "Cancel",
+            onclick: "window.location.replace('<?php echo base_url();?>')"
+        });
+
+        $(".btn").parent().append(r);
+    });
+</script>
 
 
 

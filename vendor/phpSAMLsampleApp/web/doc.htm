@@ -1,0 +1,233 @@
+<div class="doc">
+    <h1>PHP SAML Plugin Documentation</h1>
+    <ul>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#config">Configuration</a></li>
+        <li><a href="#integration">Integration</a></li>
+        <li><a href="#tests">Tests</a></li>
+        <li><a href="#diagnostic">Diagnostic</a></li>
+        <li>
+            <a href="#troubleshooting">Troubleshooting</a>
+            <ul>
+                <li><a href="#troubleshooting_iis_php">PHP SAML Plugin not found in repo</a></li>
+                <li><a href="#troubleshooting_errors_not_shown">Errors are not shown</a></li>
+                <li><a href="#troubleshooting_errors_not_redable">Errors are not readable</a></li>
+                <li><a href="#troubleshooting_ssl">XML Signature verification always fails</a></li>
+                <li><a href="#troubleshooting_php_ssl">PHP Fatal error: Call to undefined function openssl_get_publickey (or other)</a></li>
+            </ul>
+        </li>
+        
+        <li><a href="#links">Helpful links</a></li>
+    </ul>
+    
+    <!-- section -->
+    <h2><a id="requirements">Requirements</a></h2>
+    <div class="text">
+        First of all you need to make sure that all requirements are met<br />
+        <h3>Dependencies</h3>
+    
+        SAML PHP plugin requires such software to be installed on the web server running it:<br />
+        <ul>
+            <li>PHP 5.0 or greater</li>
+            <li>php_openssl extension</li>
+            <li>openssl libraries</li>        
+        </ul>
+        <br />
+        <h3>Filesystem permissions</h3>
+        If your php application is running on Linux, please add write permissions to <b>[php_application_root_dir]/logs</b> directory to the apache user.
+<pre>
+$ cd [php_application_root_dir]
+$ chmod 0755 logs/
+#chown apacheUser:apacheGroup logs/
+#usually it goes to somehting like this:
+$ chown apache:apache logs/
+</pre>
+        <br />
+        <h3>Hosting restrictions</h3>
+        If your php application is hosted on some third-party virtual or dedicated server, you should double check file access permissions. 
+
+        <!-- section -->
+        <h2><a id="config">Configuration</a></h2>
+        Then application must be added to the organization on okta.com from OKTA apps repository. It's easy to find it using "PHP SAML" keywords:
+        <br />
+        <img width="100%" src="web/img/add_app_1.jpg" alt="Adding application" /><br />
+        
+        <br />Two things that are asked: login and logout URLs:<br /><br />
+        <img width="100%" src="web/img/add_app_2_2.jpg" alt="Setting login and logout url" /><br />
+                
+        Once SAML plugin is added to the list of available applications, you should navigate to:<br />
+        <b>Applications &gt; [saml_plugin_name] &gt; Sign-On tab &gt; SAML 2.0 setup instructions</b><br />
+        <br />
+        <img width="100%" src="web/img/instr2.jpg" alt="Instructions page" /><br /><br />
+        
+        There you will see an integration section where xml config provided.<br />
+        Add provided xml node to <b>[php_application_root_dir]/okta.config.xml</b> file under root <b>&lt;configuration&gt;</b> section<br />
+        <br />
+        <b>NOTE:</b> If PHP SAML Plugin wasn't found, please use appropriate <a href="#troubleshooting_iis_php">troubleshooting section</a>.
+    </div>    
+    
+    <!-- section -->
+    <h2><a id="integration">Integration</a></h2>
+    <div class="text">
+        And the last step is to inject few lines of php code into your web application:<br /><br />
+        <b>1.</b> Include <b>lib/bootstrap.php</b> to the top of php script that handle SAML authorization.<br />
+        <br />
+        Navigate to the place in code where you expect SAMLResponse POSTed and add
+<pre>
+PHPSAMLProcessor::self()->getUserIdBySAMLResponse($_POST["SAMLResponse"]);
+</pre>
+        call should be wrapped into 
+<pre>
+try .. catch
+</pre>
+        block because it throws exception if xml verification failed or smth else went wrong.<br /><br />
+        
+        Example:<br />
+<pre>
+&lt;?php
+    require_once((dirname(__FILE__)) . "/lib/bootstrap.php");
+    
+    $SAMLResponse = @$_POST["SAMLResponse"];
+    
+    if (!empty($base64EncodedSAMLResponse)) {
+        try {
+            $userId = PHPSAMLProcessor::self()-&gt;getUserIdBySAMLResponse($SAMLResponse);
+            echo "User id:" . $userId; 
+        } catch (Exception $e) {
+            echo "ERROR:" . $e-&gt;getMessage();
+        } echo "&lt;br /&gt;";
+    }
+?&gt;
+</pre>
+
+        <b>2.</b> Include <b>lib/bootstrap.php</b> to the top of php script that performs SAML requests.<br />
+        <br />
+        Navigate to the place in code where you plan to perform SAML request to the OKTA and add such code:<br />
+<pre>
+&lt;?php
+    $authUrl = Config::getAuthUrl(); //taken from okta.config.xml
+    $samlRequest = PHPSAMLProcessor::self()-&gt;createSAMLRequest();
+    
+    //or your url where authenticated user will be redirected after successfully logon
+    $relayState = Config::getBaseUrl() . "/";
+    
+    $redirUrl = $authUrl . "?SAMLRequest=" . urlencode(base64_encode($samlRequest)) . 
+                "&RelayState=" . urlencode($relayState);
+    header("Location: " . $redirUrl);
+?&gt;
+</pre>
+    </div>
+    
+    <!-- section -->
+    <h2><a id="tests">Tests</a></h2>
+    <div class="text">
+        There are two main cases of php website &lt;-&gt; OKTA interaction:<br />
+        <ol>
+            <li>fetch SAMLResponse from OKTA with user info, validate it and save fetched user id in for local session</li>
+            <li>create SAMLRequest, encode it and redirect user to okta with encoded request in order to recieve response with user auth info</li>
+        </ol><br />
+        First is covered in <b>[php_website]/tests/TestSAMLResponseParsing.php</b><br />
+        Second is covered in <b>[php_website]/tests/TestSAMLRequestGeneration.php</b><br />
+        <br />
+        Both of them can be used as an examples of what pieces of code should be added into existing website.<br />
+        To run them, use command line php.<br />
+        Example:<br />
+<pre>
+$ php TestSAMLRequestGeneration.php
+TestSAMLRequestGeneration.php
+OK
+Test cases run: 1/1, Passes: 5, Failures: 0, Exceptions: 0
+</pre>
+    </div>
+    
+    <!-- section -->
+    <h2><a id="diagnostic">Diagnostic</a></h2>
+    <div class="text">
+        For diagnostic purposes logs/okta.log can be used. All info and errors go there<br />
+    </div>
+    
+    <!-- section -->
+    <h2><a id="troubleshooting">Troubleshooting</a></h2>
+    <div class="text">
+        <h3><a id="troubleshooting_iis_php">PHP SAML Plugin not found in repo</a></h3>
+        Not a big deal! We can use IIS SAML Plugin, it's totally compatible with PHP SAML.
+        Though some manual actions should be performed. Contents of edit boxes <b>issuer, authenticationUrl, certificate</b> should be copied 
+        to the appropriate sections in <b>[php_website]/okta.config.xml</b>.<br /><br />
+        So you should install IIS SAML Plugin, set there the same login and logout urls as mentioned in <a href="#config">configuration section</a>
+        and then navigate to: Applications &gt; [iis_saml_plugin_name] &gt; Sign-On tab &gt; SAML 2.0 setup instructions<br /><br />
+        There you will find three edit boxes:<br />
+        <ul>
+            <li><b>issuer</b></li>
+            <li><b>authenticationUrl</b></li>
+            <li><b>certificate</b></li>
+        </ul>
+        <br />
+        Their contents should be copied to the appropriate nodes in <b>[php_website]/okta.config.xml</b> in order to PHP SAML Application
+        know where SAML Request should be sent, which certificate to use on SAML response verification step etc.<br />    
+        
+        <h3><a id="troubleshooting_ssl">XML Signature verification always fails</a></h3>
+        Make sure that openssl libraries are installed. To check this you can run:<br />
+<pre>
+$ openssl version
+</pre>
+        If they were not found on the server that is running PHP App, you can download them by the following: 
+        <a href="http://www.openssl.org/related/binaries.html">link</a><br />
+        Once openssl is installed, web server should be restarted.
+
+        <h3><a id="troubleshooting_php_ssl">PHP Fatal error: Call to undefined function openssl_get_publickey (or other)</a></h3>
+        Or openssl_get_privatekey, openssl_public_encrypt or any other openssl_* function:<br />
+        Please enable php_openssl extension in your <b>php.ini</b> configuration file.<br />
+<pre>
+...
+extension=php_openssl.dll
+...
+</pre>
+        <b>or</b>
+<pre>
+...
+extension=php_openssl.so
+...
+</pre>
+        If you are running Linux.<br /><br />
+        This line should be uncommented (remove ";") and web server restarted right after that.
+
+        <h3><a id="troubleshooting_errors_not_shown">Errors are not shown</a></h3>
+        It's often happen that instead of response from your web application, you see the white blank page.
+        <br />
+        It means that some error raised and <b>php.ini</b> was not configured to report any errors. To turn on the error
+        reporting, find <b>error_reporting</b> and <b>display_errors</b> settings in your <b>php.ini</b>, uncomment them
+        and update them to look like in the example:<br />
+<pre>
+error_reporting  =  E_ERROR | E_WARNING | E_PARSE
+display_errors = On
+</pre>
+        Once changes are applied, web server should be restarted.
+        
+        <h3><a id="troubleshooting_errors_not_redable">Errors are not readable</a></h3>
+        If shown errors are not readable or messed up, you should turn on html representation of them in your <b>php.ini</b>
+        file:<br />
+<pre>
+html_errors = On
+</pre>
+    
+    Once changes are applied, web server should be restarted.
+    
+    </div>
+   
+    <!-- section -->
+    <h2><a id="links">Helpful links</a></h2>
+    <div class="text">
+        <ul>
+            <li>
+                <a target="_blank" href="http://www.okta.com/resources/whitepapers-and-datasheets.html">OKTA Whitepapers &amp; Datasheets</a>
+            </li>
+            <li>
+                <a target="_blank" href="http://en.wikipedia.org/wiki/SAML_2.0">SAML 2.0 Introduction</a> 
+                or <a target="_blank" href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">The whole specification (pdf)</a>
+            </li>
+            <li><a target="_blank" href="http://www.openssl.org/related/binaries.html">OpenSSL binary distributions</a></li>
+            <li><a target="_blank" href="http://httpd.apache.org/docs/">Apache HTTP Server Documentation</a></li>
+            <li><a target="_blank" href="http://www.php.net/manual/en/">PHP Documentation</a></li>
+        </ul>
+    </div>
+</div>

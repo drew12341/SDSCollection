@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Sds';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
+$route['auth/(:any)'] = '/';
+$route['auth'] = '/';
+

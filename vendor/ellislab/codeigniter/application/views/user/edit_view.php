@@ -34,7 +34,20 @@
                     'id' => 'email',
                     'value' => $dataSet['email'],
                 ),
-
+                array(
+                    'id' => 'edit',
+                    'type'=>'checkbox',
+                    'label'=>'Edit and Upload',
+                    'value' => true,
+                    'options' => array(
+                        array(
+                            'id' => 'edit',
+                            'value' => true,
+                            'label'=>'',
+                            'checked'=> ($dataSet['group_id'] == 3 ? true: false),
+                        ),
+                    ),
+                ),
 
                 array(
                     'id' => 'submit',

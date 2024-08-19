@@ -9,3 +9,7 @@ RewriteCond $1 !^(index\\.php|resources|robots\\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+  Header set Cache-Control "max-age=604800, public"
+</FilesMatch>

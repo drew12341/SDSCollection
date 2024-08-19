@@ -70,7 +70,7 @@
                 array(
                     'id' => 'link',
                     'label'=>'Stored SDS Filename',
-                    'value'=>$dataSet['filename'],
+                    'value'=>$dataSet['filename'] ?? '' ,
                     'readonly'=>'true',
 //                    'input_addons' => array(
 //                        'post' => '<input name="userfile" id="userfile" label="Attach SDS (PDF)" class="form-control" value="" type="file">'
@@ -94,5 +94,18 @@
         ?>
     </div>
 </div>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        var r = $('<input/>').attr({
+            type: "button",
+            id: "field",
+            class: "btn btn-primary",
+            style: 'margin-left:10px',
+            value: "Cancel",
+            onclick: "window.location.replace('<?php echo base_url();?>')"
+        });
 
+        $(".btn").parent().append(r);
+    });
+</script>
 
