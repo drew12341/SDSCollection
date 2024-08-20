@@ -140,7 +140,7 @@ class User extends CI_Controller  {
             $data = array('dataSet'=>$this->ion_auth->getUser($id),
                 'groups'=>$groups);
             //$this->load->view('user/edit_view', $data);
-            redirect(site_url('user/edit/').$id);
+            redirect(site_url('User/edit/').$id);
         }
 
 

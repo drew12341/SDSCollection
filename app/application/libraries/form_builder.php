@@ -56,6 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     echo $this->form_builder->close_form();
   ?>
  */
+#[\AllowDynamicProperties]
 class Form_builder {
 
     private $config = array(/* Config array - can be overrided by passing in array in ini() */

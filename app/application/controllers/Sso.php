@@ -16,7 +16,7 @@ class Sso extends CI_Controller
 
     public function index()
     {
-        require_once(__DIR__."/../../../../phpSAMLsampleApp/lib/bootstrap.php");
+        require_once(__DIR__."/../../../phpSAMLsampleApp/lib/bootstrap.php");
 
         if (!PHPSAMLProcessor::self()->isAuthenticated()) {
             PHPSAMLProcessor::self()->init();

@@ -205,30 +205,26 @@ class XMLSecurityKey {
         srand();
         switch ($type) {
             case (XMLSecurityKey::TRIPLEDES_CBC):
-                $this->cryptParams['library'] = 'mcrypt';
-                $this->cryptParams['cipher'] = MCRYPT_TRIPLEDES;
-                $this->cryptParams['mode'] = MCRYPT_MODE_CBC;
+                $this->cryptParams['library'] = 'openssl';
+                $this->cryptParams['cipher'] = 'des-ede3-cbc';
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmlenc#tripledes-cbc';
                 $this->cryptParams['keysize'] = 24;
                 break;
             case (XMLSecurityKey::AES128_CBC):
-                $this->cryptParams['library'] = 'mcrypt';
-                $this->cryptParams['cipher'] = MCRYPT_RIJNDAEL_128;
-                $this->cryptParams['mode'] = MCRYPT_MODE_CBC;
+                $this->cryptParams['library'] = 'openssl';
+                $this->cryptParams['cipher'] = 'aes-128-cbc';
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmlenc#aes128-cbc';
                 $this->cryptParams['keysize'] = 16;
                 break;
             case (XMLSecurityKey::AES192_CBC):
-                $this->cryptParams['library'] = 'mcrypt';
-                $this->cryptParams['cipher'] = MCRYPT_RIJNDAEL_128;
-                $this->cryptParams['mode'] = MCRYPT_MODE_CBC;
+                $this->cryptParams['library'] = 'openssl';
+                $this->cryptParams['cipher'] = 'aes-192-cbc';
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmlenc#aes192-cbc';
                 $this->cryptParams['keysize'] = 24;
                 break;
             case (XMLSecurityKey::AES256_CBC):
-                $this->cryptParams['library'] = 'mcrypt';
-                $this->cryptParams['cipher'] = MCRYPT_RIJNDAEL_128;
-                $this->cryptParams['mode'] = MCRYPT_MODE_CBC;
+                $this->cryptParams['library'] = 'openssl';
+                $this->cryptParams['cipher'] = 'aes-256-cbc';
                 $this->cryptParams['method'] = 'http://www.w3.org/2001/04/xmlenc#aes256-cbc';
                 $this->cryptParams['keysize'] = 32;
                 break;
@@ -315,7 +311,7 @@ class XMLSecurityKey {
             $key = openssl_random_pseudo_bytes($keysize);
         } else {
             /* Generating random key using iv generation routines */
-            $key = mcrypt_create_iv($keysize, MCRYPT_RAND);
+            $key = random_bytes($keysize);
         }
         
         if ($this->type === XMLSecurityKey::TRIPLEDES_CBC) {
@@ -388,7 +384,7 @@ class XMLSecurityKey {
             } else {
                 $this->key = openssl_get_privatekey($this->key, $this->passphrase);
             }
-        } else if ($this->cryptParams['cipher'] == MCRYPT_RIJNDAEL_128) {
+        } else if ($this->cryptParams['cipher'] == 'aes-128-cbc') {
             /* Check key length */
             switch ($this->type) {
                 case (XMLSecurityKey::AES256_CBC):
@@ -404,7 +400,7 @@ class XMLSecurityKey {
             }
         }
     }
-
+/*
     private function encryptMcrypt($data) {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
         $this->iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
@@ -420,7 +416,9 @@ class XMLSecurityKey {
         mcrypt_module_close($td);
         return $encrypted_data;
     }
+*/
 
+/*
     private function decryptMcrypt($data) {
         $td = mcrypt_module_open($this->cryptParams['cipher'], '', $this->cryptParams['mode'], '');
         $iv_length = mcrypt_enc_get_iv_size($td);
@@ -439,7 +437,7 @@ class XMLSecurityKey {
         }
         return $decrypted_data;
     }
-
+*/
     private function encryptOpenSSL($data) {
         if ($this->cryptParams['type'] == 'public') {
             if (! openssl_public_encrypt($data, $encrypted_data, $this->key, $this->cryptParams['padding'])) {
@@ -492,9 +490,9 @@ class XMLSecurityKey {
 
     public function encryptData($data) {
         switch ($this->cryptParams['library']) {
-            case 'mcrypt':
-                return $this->encryptMcrypt($data);
-                break;
+//            case 'mcrypt':
+//                return $this->encryptMcrypt($data);
+//                break;
             case 'openssl':
                 return $this->encryptOpenSSL($data);
                 break;
@@ -503,9 +501,9 @@ class XMLSecurityKey {
 
     public function decryptData($data) {
         switch ($this->cryptParams['library']) {
-            case 'mcrypt':
-                return $this->decryptMcrypt($data);
-                break;
+//            case 'mcrypt':
+//                return $this->decryptMcrypt($data);
+//                break;
             case 'openssl':
                 return $this->decryptOpenSSL($data);
                 break;
