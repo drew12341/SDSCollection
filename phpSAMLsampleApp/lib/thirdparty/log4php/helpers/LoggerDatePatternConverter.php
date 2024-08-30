@@ -48,6 +48,6 @@ class LoggerDatePatternConverter extends LoggerPatternConverter {
 		$timeStamp = $event->getTimeStamp();
 		$usecs = round(($timeStamp - (int)$timeStamp) * 1000);
 		$df = preg_replace('/((?<!\\\\)(?:\\\\{2})*)u/', '${1}' . sprintf('%03d', $usecs), $this->df);
-		return date($df, $timeStamp);
+        return date($df, (int)$timeStamp);
 	}
 }
