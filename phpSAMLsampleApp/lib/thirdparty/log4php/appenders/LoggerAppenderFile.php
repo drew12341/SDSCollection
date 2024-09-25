@@ -79,7 +79,7 @@ class LoggerAppenderFile extends LoggerAppender {
 				if($this->getAppend()) {
 					fseek($this->fp, 0, SEEK_END);
 				}
-				fwrite($this->fp, $this->layout->getHeader());
+				fwrite($this->fp, $this->layout->getHeader()  ?? '');
 				flock($this->fp, LOCK_UN);
 				$this->closed = false;
 			} else {

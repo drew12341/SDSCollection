@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<configuration>
+<okta>
+  <authentication>
+    <authenticationurl>https://login-preprod.uts.edu.au/app/uts-preprod_orruat_1/exk1jylyftPqPcifD3l7/sso/saml</authenticationurl>
+    <issuer>http://www.okta.com/exk1jylyftPqPcifD3l7</issuer>
+    <logoutUrl>http://localhost:1024/logout</logoutUrl>
+    <certificate>
+-----BEGIN CERTIFICATE-----
+        MIIDoDCCAoigAwIBAgIGAXe3gtTQMA0GCSqGSIb3DQEBCwUAMIGQMQswCQYDVQQGEwJVUzETMBEG A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU MBIGA1UECwwLU1NPUHJvdmlkZXIxETAPBgNVBAMMCHV0cy10ZXN0MRwwGgYJKoZIhvcNAQkBFg1p bmZvQG9rdGEuY29tMB4XDTIxMDIxODIzMzgwMFoXDTMxMDIxODIzMzkwMFowgZAxCzAJBgNVBAYT AlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMQ0wCwYDVQQK DARPa3RhMRQwEgYDVQQLDAtTU09Qcm92aWRlcjERMA8GA1UEAwwIdXRzLXRlc3QxHDAaBgkqhkiG 9w0BCQEWDWluZm9Ab2t0YS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBZiXY 4JQubkfWgcSLAVECRLDBjVsf1eq1hgd00lJy0A1Y13F+4zz2d/4f7G04VTdYaaV8UnVXeOhYaG8Y ZzrdnzAy6AaXpbW9FFq+WadH6FeoSqYe8doPWmPj9u1QhXk6p0XmhQC2NTJPqQyZHGig091EBeB+ LiIlH3bhO48G8mGP+kyd+dUIjcmlCcVSk1ybD3yOwZMUTythfDPZGTRQppH8Fp4xFL7xhtuFbKdw ia9nPE2+YRbhivYTao9RFNtInH+cjVlUtW9zav24d18HzWJysYhWCIMAXgprf+7rRQy/+XPgGEN7 lofLms8z8YqMMhYUFNe14lo6vkY+NeilAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAKgVI0OiuDXc fPsVZt64DfSp1j6r+VZXJIHwFGzzTOLM2moQQeHGKIa9voqGG4H/eFVUxsXBle9bTGVaSqD22fL0 EiK/v1mXushq7q4C5w5sNAWgHuJluCdg2DgNguZcLQKI6CZ425ltj8lwGv0KlASJM5TPT4gEiCn1 IPprFDVV7BRg2PNNu/uDx74GpThNeoiw57FLFxwIA3unqHMPHhjlJl8NcfE15X8kkMop/4PgEWd5 a4XsDQcYFEh7p0Hd+l0TtYaoX5sfOGewHz0caPv7JxHvAXm4Yaejt33/RXOjunMiKREj2duy2JBZ uPABHqNHmtKqIPTd3YOLf9wIB3U=
+        -----END CERTIFICATE-----
+</certificate>
+  </authentication>
+</okta>
+</configuration>
