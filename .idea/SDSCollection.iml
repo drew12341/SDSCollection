@@ -9,6 +9,7 @@
         <CLASSES>
           <root url="phar://$MODULE_DIR$/composer.phar/" />
         </CLASSES>
+        <JAVADOC />
         <SOURCES>
           <root url="phar://$MODULE_DIR$/composer.phar/" />
         </SOURCES>

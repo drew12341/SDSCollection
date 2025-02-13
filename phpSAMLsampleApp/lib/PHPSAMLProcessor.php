@@ -164,6 +164,7 @@ class PHPSAMLProcessor
                 $relayState = Config::getRelayStateURL();
                 $redirUrl = Config::getAuthUrl() . "?SAMLRequest=" . urlencode(base64_encode($this->createSAMLRequest())) . "&RelayState=" . urlencode($relayState);
                 Logger::getRootLogger()->info("Requesting user data from okta through SAMLRequest GET param");
+                $msg = '';
                 $this->redirect($redirUrl, $msg);
             }
         } catch (Exception $e) {
